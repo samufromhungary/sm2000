@@ -7,7 +7,7 @@ create table if not exists accounts(
  create table if not exists schedules(
     id SERIAL primary key,
     title text unique not null,
-    days numeric (1) check days > 0 and days < 8,
+    days numeric (1),
     accounts_id int REFERENCES accounts(id)
 );
 create table if not exists tasks(
@@ -20,6 +20,6 @@ create table if not exists coordinated(
     tasks_id int REFERENCES tasks(id),
     schedules_id int REFERENCES schedules(id),
 	day numeric(1), --trigger ellen.
-	start numeric(2) check start >= 0 and start < 25,
-	end numeric(2) check end >= start
+	start_date numeric(2),
+	end_date numeric(2)
 );
