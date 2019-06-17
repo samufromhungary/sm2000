@@ -25,6 +25,9 @@ create table if not exists coordinated(
 	end_date numeric(2)
 );
 
+INSERT INTO accounts (username ,email,password, permission) VALUES
+    ('admin','admin@admin','admin','Admin') on CONFLICT DO NOTHING
+
 -- create trigger sevenDays
 --    before insert on schedules
 --    for each row
