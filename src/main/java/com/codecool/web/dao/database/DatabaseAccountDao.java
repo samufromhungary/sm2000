@@ -31,9 +31,9 @@ public final class DatabaseAccountDao extends AbstractDao implements AccountDao 
         if(email == null || "".equals(email) ) {
             throw new IllegalArgumentException("Email cannot be null or empty");
         }
-        String sql = "SELECT id, username, email, password FROM accounts WHERE email = ?";
+        String sql = "SELECT id, username, email, password, permission FROM accounts WHERE email = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(2, email);
+            statement.setString(1, email);
             try(ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
                     return fetchAccount(resultSet);
@@ -90,7 +90,6 @@ public final class DatabaseAccountDao extends AbstractDao implements AccountDao 
             statement.setString(2,email);
             statement.executeUpdate();
             }catch (SQLException ex){
-            connection.rollback();
             throw ex;
             }
         }
