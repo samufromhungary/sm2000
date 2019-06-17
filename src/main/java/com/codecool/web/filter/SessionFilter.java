@@ -1,6 +1,6 @@
 package com.codecool.web.filter;
 
-import com.codecool.web.model.User;
+import com.codecool.web.model.Account;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -21,8 +21,8 @@ public final class SessionFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
+        Account account = (Account) session.getAttribute("account");
+        if (account == null) {
             resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
             chain.doFilter(req, resp);
