@@ -6,12 +6,11 @@ public final class Schedule extends AbstractModel {
 
     private String title;
     private int days;
-    private int accounts_id;
 
-    public Schedule(int id, String title, int days, int accounts_id) {
+    public Schedule(int id, String title, int days) {
         super(id);
+        this.title = title;
         this.days = days;
-        this.accounts_id = accounts_id;
     }
 
     public String getTitle() {
@@ -22,10 +21,6 @@ public final class Schedule extends AbstractModel {
         return days;
     }
 
-    public int getAccounts_id() {
-        return accounts_id;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -33,13 +28,12 @@ public final class Schedule extends AbstractModel {
         if (!super.equals(o)) return false;
         Schedule schedule = (Schedule) o;
         return Objects.equals(title, schedule.title) &&
-            Objects.equals(days, schedule.days) &&
-            Objects.equals(accounts_id, schedule.accounts_id);
+            Objects.equals(days, schedule.days);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), title, days, accounts_id);
+        return Objects.hash(super.hashCode(), title, days);
     }
 }
 
