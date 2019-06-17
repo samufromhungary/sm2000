@@ -83,7 +83,7 @@ public final class DatabaseAccountDao extends AbstractDao implements AccountDao 
     }
 
     @Override
-    public void changePermission(String permission, String email) throws SQLException{
+    public void modifyPermission(String permission, String email) throws SQLException{
         String sql = "UPDATE accounts SET permission = ? WHERE email = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, permission);

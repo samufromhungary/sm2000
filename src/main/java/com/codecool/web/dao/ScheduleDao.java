@@ -13,9 +13,9 @@ public interface ScheduleDao {
 
     Schedule add(String title, int days) throws SQLException;
 
-    void modifyName(String title) throws SQLException;
+    void modifyTitle(String oldTitle, String newTitle) throws SQLException;
 
-    void modifyDays (int days) throws SQLException;
+    void modifyDays (String title, int days) throws SQLException;
 
     void delete (String title) throws SQLException;
 }
