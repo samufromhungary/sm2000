@@ -9,7 +9,7 @@ import java.util.List;
 
 public final class DatabaseAccountDao extends AbstractDao implements AccountDao {
 
-    DatabaseAccountDao(Connection connection) {
+    public DatabaseAccountDao(Connection connection) {
         super(connection);
     }
 
