@@ -1,4 +1,17 @@
 package com.codecool.web.dao;
 
-public class AccountDao {
+import com.codecool.web.model.Account;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public interface AccountDao {
+
+    List<Account> findAll() throws SQLException;
+
+    Account findByEmail(String email) throws SQLException;
+
+    Account add(String username, String email, String password, String permission) throws SQLException;
+
+    void changePermission(String permission) throws SQLException;
 }
