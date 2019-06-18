@@ -17,7 +17,11 @@ public final class SimpleRegisterService implements RegisterService {
 
     @Override
     public Account registerUser(String username, String email, String password, String permission) throws SQLException, ServiceException {
-        Account account = accountDao.add(username,email,password,permission);
-        return account;
+        try{
+            Account account = accountDao.add(username,email,password,permission);
+            return account;
+        }catch (IllegalArgumentException ex){
+            throw new ServiceException(ex.getMessage());
+        }
     }
 }

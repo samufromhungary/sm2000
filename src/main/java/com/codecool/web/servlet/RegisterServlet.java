@@ -33,7 +33,7 @@ public class RegisterServlet extends AbstractServlet {
 
             sendMessage(resp, HttpServletResponse.SC_OK, account);
         } catch (ServiceException ex) {
-            sendMessage(resp, HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+            sendMessage(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
         }

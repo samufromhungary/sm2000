@@ -73,11 +73,11 @@ function onOtherResponse(targetEl, xhr) {
     } else {
         const json = JSON.parse(xhr.responseText);
         if (xhr.status === INTERNAL_SERVER_ERROR) {
-            newError(targetEl, `Server error: ${json.message}`);
+            newError(targetEl, json.message);
         } else if (xhr.status === UNAUTHORIZED || xhr.status === BAD_REQUEST) {
             newError(targetEl, json.message);
         } else {
-            newError(targetEl, `Unknown error: ${json.message}`);
+            newError(targetEl, json.message);
         }
     }
 }
