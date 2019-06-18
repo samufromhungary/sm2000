@@ -12,6 +12,7 @@ let shopContentDivEl;
 let shopsContentDivEl;
 let backToProfileContentDivEl;
 let logoutContentDivEl;
+let registerContentDivEl;
 
 function newInfo(targetEl, message) {
     newMessage(targetEl, 'info', message);
