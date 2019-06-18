@@ -26,8 +26,9 @@
         <input type="text" name="email" placeholder="email">
         <input type="password" name="password" placeholder="password">
         <button id="login-button">Login</button>
-        <button onclick="togglediv('register-content')">Create an account</button>
     </form>
+    <br>
+    <button onclick="togglediv('register-content')">Create an account</button>
 </div>
 <div id="register-content" class="hidden content">
     <h1>Register</h1>
