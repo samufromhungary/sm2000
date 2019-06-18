@@ -43,6 +43,7 @@ public final class DatabaseAccountDao extends AbstractDao implements AccountDao 
         return null;
     }
 
+    @Override
     public boolean accountAlreadyExists(String email) throws SQLException{
         List<Account> accounts = findAll();
         boolean valid = false;

@@ -14,4 +14,6 @@ public interface AccountDao {
     Account add(String username, String email, String password, String permission) throws SQLException;
 
     void modifyPermission(String permission, String email) throws SQLException;
+
+    boolean accountAlreadyExists(String email) throws SQLException;
 }
