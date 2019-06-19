@@ -71,7 +71,7 @@ function appendSchedules(schedules) {
 
     for (let i = 0; i < schedules.length; i++) {
         const schedule = schedules[i];
-        appendSchedules(schedule);
+        appendSchedule(schedule);
     }
 }
 
@@ -81,11 +81,6 @@ function onSchedulesLoad(schedules) {
 
     appendSchedules(schedules);
 
-    // const scheduleTitleSpandEl = document.getElementById('schedule-title');
-    // const scheduleDaysSpanEl = document.getElementById('schedule-days');
-
-    // scheduleTitleSpandEl.textContent = schedule.title;
-    // scheduleDaysSpanEl.textContent = schedule.days;
 }
 
 function onSchedulesResponse() {
