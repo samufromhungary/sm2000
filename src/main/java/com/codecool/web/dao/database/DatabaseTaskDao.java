@@ -53,17 +53,18 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
     }
 
     @Override
-    public Task add(String title, String description) throws SQLException {
+    public Task add(String title, int accounts_id, String description) throws SQLException {
         if (title == null || "".equals(title) || description == null || "".equals(description)) {
             throw new IllegalArgumentException("Something is missing");
         }
         if(!taskAlreadyExists(title)){
             boolean autoCommit = connection.getAutoCommit();
             connection.setAutoCommit(false);
-            String sql = "INSERT INTO tasks (title, description) VALUES (?, ?)";
+            String sql = "INSERT INTO tasks (title, accounts_id, description) VALUES (?, ?, ?)";
             try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, title);
-                statement.setString(2, description);
+                statement.setInt(2,accounts_id);
+                statement.setString(3, description);
                 executeInsert(statement);
                 int id = fetchGeneratedId(statement);
                 return new Task(id,title, description);

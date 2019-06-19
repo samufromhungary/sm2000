@@ -11,7 +11,7 @@ public interface TaskDao {
 
     Task findByTitle(String title) throws SQLException;
 
-    Task add(String title, String description) throws SQLException;
+    Task add(String title, int accounts_id, String description) throws SQLException;
 
     void modifyTitle(String oldTitle, String newTitle) throws SQLException;
 
