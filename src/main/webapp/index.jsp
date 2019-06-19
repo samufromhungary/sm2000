@@ -11,6 +11,7 @@
         <c:url value="/register.js" var="registerScriptUrl"/>
         <c:url value="/profile.js" var="profileScriptUrl"/>
         <c:url value="/tasks.js" var="tasksScriptUrl"/>
+        <c:url value="/schedules.js" var="schedulesScriptUrl"/>
         <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
         <c:url value="/logout.js" var="logoutScriptUrl"/>
         <link rel="stylesheet" type="text/css" href="${styleUrl}">
@@ -19,6 +20,7 @@
         <script src="${registerScriptUrl}"></script>
         <script src="${profileScriptUrl}"></script>
         <script src="${tasksScriptUrl}"></script>
+        <script src="${schedulesScriptUrl}"></script>
         <script src="${backToProfileScriptUrl}"></script>
         <script src="${logoutScriptUrl}"></script>
         <title>App</title>
@@ -48,8 +50,29 @@
     <p>Email: <span id="user-email"></span></p>
     <p>Password: <span id="user-password"></span></p>
     <ul>
+        <li><a href="javascript:void(0);" onclick="onSchedulesClicked();">Schedules</a></li>
         <li><a href="javascript:void(0);" onclick="onTasksClicked();">Tasks</a></li>
     </ul>
+</div>
+<div id="schedules-content" class="hidden content">
+    <h1>Schedules</h1>
+    <table id="schedules">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Days</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <h2>Add new shop</h2>
+    <form id="schedule-form" onsubmit="return false;">
+        <input type="text" name="title">
+        <input type="text" name="days">
+        <button onclick="onScheduleAddClicked();">Add</button>
+    </form>
 </div>
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>

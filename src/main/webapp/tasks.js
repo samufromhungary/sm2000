@@ -80,12 +80,12 @@ function onTasksLoad(tasks) {
     tasksTableBodyEl = tasksTableEl.querySelector('tbody');
 
     appendTasks(tasks);
-
-    const taskTitleSpandEl = document.getElementById('task-title');
-    const taskDescriptionSpanEl = document.getElementById('task-description');
-
-    taskTitleSpandEl.textContent = task.title;
-    taskDescriptionSpanEl.textContent = task.description;
+//
+//    const taskTitleSpandEl = document.getElementById('task-title');
+//    const taskDescriptionSpanEl = document.getElementById('task-description');
+//
+//    taskTitleSpandEl.textContent = task.title;
+//    taskDescriptionSpanEl.textContent = task.description;
 }
 
 function onTasksResponse() {
