@@ -6,13 +6,14 @@ const INTERNAL_SERVER_ERROR = 500;
 
 let loginContentDivEl;
 let profileContentDivEl;
-let couponContentDivEl;
-let couponsContentDivEl;
-let shopContentDivEl;
-let shopsContentDivEl;
 let backToProfileContentDivEl;
 let logoutContentDivEl;
 let registerContentDivEl;
+
+function togglediv(id) {
+    var div = document.getElementById(id);
+    div.style.display = div.style.display == "none" ? "block" : "none";
+}
 
 function newInfo(targetEl, message) {
     newMessage(targetEl, 'info', message);

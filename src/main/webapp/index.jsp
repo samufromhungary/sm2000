@@ -16,7 +16,6 @@
         <script src="${loginScriptUrl}"></script>
         <script src="${registerScriptUrl}"></script>
         <script src="${profileScriptUrl}"></script>
-        <script src="${backToProfileScriptUrl}"></script>
         <script src="${logoutScriptUrl}"></script>
         <title>App</title>
     </head>
@@ -24,17 +23,19 @@
 <div id="login-content" class="content">
     <h1>Login</h1>
     <form id="login-form" onsubmit="return false;">
-        <input type="text" name="email">
-        <input type="password" name="password">
+        <input type="text" name="email" placeholder="email">
+        <input type="password" name="password" placeholder="password">
         <button id="login-button">Login</button>
     </form>
+    <br>
+    <button onclick="togglediv('register-content')">Create an account</button>
 </div>
-<div id="register-content" class="content">
+<div id="register-content" class="hidden content">
     <h1>Register</h1>
     <form id="register-form" onsubmit="return false;">
-        <input type="text" name="username">
-        <input type="text" name="email">
-        <input type="password" name="password">
+        <input type="text" name="username" placeholder="username">
+        <input type="text" name="email" placeholder="email">
+        <input type="password" name="password" placeholder="password">
         <button id="register-button">Register</button>
     </form>
 </div>
