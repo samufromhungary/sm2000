@@ -28,6 +28,21 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
     }
 
     @Override
+    public List<Schedule> findAllById(int accounts_id) throws SQLException{
+        String sql = "SELECT id, title, days, accounts_id FROM schedules where accounts_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, accounts_id);
+            List<Schedule> schedules = new ArrayList<>();
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    schedules.add(fetchSchedule(resultSet));
+                }
+                return schedules;
+            }
+        }
+    }
+
+    @Override
     public Schedule findByTitle(String title) throws SQLException {
         if(title == null || "".equals(title) ) {
             throw new IllegalArgumentException("Title cannot be null or empty");

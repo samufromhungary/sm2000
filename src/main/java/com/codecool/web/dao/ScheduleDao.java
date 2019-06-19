@@ -9,6 +9,8 @@ public interface ScheduleDao {
 
     List<Schedule> findAll() throws SQLException;
 
+    List<Schedule> findAllById(int accounts_id) throws SQLException;
+
     Schedule findByTitle(String title) throws SQLException;
 
     Schedule add(String title, int days) throws SQLException;

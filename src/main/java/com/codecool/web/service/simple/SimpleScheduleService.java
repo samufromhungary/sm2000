@@ -20,6 +20,11 @@ public final class SimpleScheduleService implements ScheduleService {
     }
 
     @Override
+    public List<Schedule> getSchedulesById(int accounts_id) throws SQLException{
+        return scheduleDao.findAllById(accounts_id);
+    }
+
+    @Override
     public Schedule getSchedule(String title) throws SQLException, ServiceException {
         try{
             Schedule schedule = scheduleDao.findByTitle(title);

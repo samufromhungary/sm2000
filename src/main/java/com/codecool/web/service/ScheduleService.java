@@ -10,6 +10,8 @@ public interface ScheduleService {
 
     List<Schedule> getSchedules() throws SQLException;
 
+    List<Schedule> getSchedulesById(int accounts_id) throws SQLException;
+
     Schedule getSchedule(String title) throws SQLException, ServiceException;
 
     Schedule addSchedule(String title, int days) throws SQLException, ServiceException;
