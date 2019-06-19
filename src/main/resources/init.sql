@@ -15,7 +15,7 @@ create table if not exists tasks(
     id serial primary key,
     title text unique not null,
     accounts_id int REFERENCES accounts(id),
-    content text not null
+    description text not null
 );
 create table if not exists coordinated(
     tasks_id int REFERENCES tasks(id),

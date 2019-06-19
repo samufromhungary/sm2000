@@ -10,12 +10,16 @@
         <c:url value="/login.js" var="loginScriptUrl"/>
         <c:url value="/register.js" var="registerScriptUrl"/>
         <c:url value="/profile.js" var="profileScriptUrl"/>
+        <c:url value="/tasks.js" var="tasksScriptUrl"/>
+        <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
         <c:url value="/logout.js" var="logoutScriptUrl"/>
         <link rel="stylesheet" type="text/css" href="${styleUrl}">
         <script src="${indexScriptUrl}"></script>
         <script src="${loginScriptUrl}"></script>
         <script src="${registerScriptUrl}"></script>
         <script src="${profileScriptUrl}"></script>
+        <script src="${tasksScriptUrl}"></script>
+        <script src="${backToProfileScriptUrl}"></script>
         <script src="${logoutScriptUrl}"></script>
         <title>App</title>
     </head>
@@ -43,8 +47,30 @@
     <h1>Profile</h1>
     <p>Email: <span id="user-email"></span></p>
     <p>Password: <span id="user-password"></span></p>
+    <ul>
+        <li><a href="javascript:void(0);" onclick="onTasksClicked();">Tasks</a></li>
+    </ul>
 </div>
-
+<div id="tasks-content" class="hidden content">
+    <h1>Tasks</h1>
+    <table id="tasks">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <h2>Add new task</h2>
+    <form id="task-form" onsubmit="return false;">
+        <input type="text" name="title">
+        <input type="text" name="description">
+        <button onclick="onTaskAddClicked();">Add</button>
+    </form>
+</div>
 <div id="logout-content" class="hidden content">
     <button id="logout-button">Logout</button>
 </div>

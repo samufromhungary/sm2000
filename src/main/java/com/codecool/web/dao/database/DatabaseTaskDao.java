@@ -14,7 +14,7 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public List<Task> findAll() throws SQLException {
-        String sql ="SELECT id, title, accounts_id, content FROM schedules";
+        String sql ="SELECT id, title, accounts_id, description FROM tasks";
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             List<Task> tasks = new ArrayList<>();
@@ -30,7 +30,7 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
         if(title == null || "".equals(title) ) {
             throw new IllegalArgumentException("Title cannot be null or empty");
         }
-        String sql = "SELECT id, title, accounts_id, content FROM tasks WHERE title = ?";
+        String sql = "SELECT id, title, accounts_id, description FROM tasks WHERE title = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, title);
             try(ResultSet resultSet = statement.executeQuery()){
@@ -53,20 +53,20 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
     }
 
     @Override
-    public Task add(String title, String content) throws SQLException {
-        if (title == null || "".equals(title) || content == null || "".equals(content)) {
+    public Task add(String title, String description) throws SQLException {
+        if (title == null || "".equals(title) || description == null || "".equals(description)) {
             throw new IllegalArgumentException("Something is missing");
         }
         if(!taskAlreadyExists(title)){
             boolean autoCommit = connection.getAutoCommit();
             connection.setAutoCommit(false);
-            String sql = "INSERT INTO tasks (title, content) VALUES (?, ?)";
+            String sql = "INSERT INTO tasks (title, description) VALUES (?, ?)";
             try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, title);
-                statement.setString(2, content);
+                statement.setString(2, description);
                 executeInsert(statement);
                 int id = fetchGeneratedId(statement);
-                return new Task(id,title,content);
+                return new Task(id,title, description);
             }catch (SQLException ex){
                 connection.rollback();
                 throw ex;
@@ -91,10 +91,10 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
     }
 
     @Override
-    public void modifyContent(String title, String content) throws SQLException {
-        String sql = "UPDATE tasks SET content = ? WHERE title = ?";
+    public void modifyDescription(String title, String description) throws SQLException {
+        String sql = "UPDATE tasks SET description = ? WHERE title = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1, content);
+            statement.setString(1, description);
             statement.setString(2, title);
             statement.executeUpdate();
         }catch (SQLException ex){
@@ -121,7 +121,7 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
     private Task fetchTask(ResultSet resultSet)throws SQLException{
         int id = resultSet.getInt("id");
         String title = resultSet.getString("title");
-        String content = resultSet.getString("content");
-        return new Task(id,title,content);
+        String description = resultSet.getString("description");
+        return new Task(id,title,description);
     }
 }

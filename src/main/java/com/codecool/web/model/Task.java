@@ -5,20 +5,20 @@ import java.util.Objects;
 public final class Task extends AbstractModel {
 
     private String title;
-    private String content;
+    private String description;
 
-    public Task(int id, String title, String content) {
+    public Task(int id, String title, String description) {
         super(id);
         this.title = title;
-        this.content = content;
+        this.description = description;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -28,11 +28,11 @@ public final class Task extends AbstractModel {
         if (!super.equals(o)) return false;
         Task task = (Task) o;
         return Objects.equals(title, task.title) &&
-            Objects.equals(content, task.content);
+            Objects.equals(description, task.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), title, content);
+        return Objects.hash(super.hashCode(), title, description);
     }
 }

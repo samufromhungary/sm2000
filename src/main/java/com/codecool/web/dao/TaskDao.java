@@ -11,11 +11,11 @@ public interface TaskDao {
 
     Task findByTitle(String title) throws SQLException;
 
-    Task add(String title, String content) throws SQLException;
+    Task add(String title, String description) throws SQLException;
 
     void modifyTitle(String oldTitle, String newTitle) throws SQLException;
 
-    void modifyContent(String title, String content) throws SQLException;
+    void modifyDescription(String title, String description) throws SQLException;
 
     void delete(String title) throws SQLException;
 }
