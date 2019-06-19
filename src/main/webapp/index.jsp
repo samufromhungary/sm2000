@@ -26,22 +26,28 @@
         <title>App</title>
     </head>
 <body>
-<div id="login-content" class="content">
+<div id="login-content" class="content" style="text-align: center">
     <h1>Login</h1>
-    <form id="login-form" onsubmit="return false;">
+    <form id="login-form" onsubmit="return false;" class="login">
         <input type="text" name="email" placeholder="email">
+        <br>
         <input type="password" name="password" placeholder="password">
-        <button id="login-button">Login</button>
+        <br>
+        <br>
+        <button id="login-button" onclick="togglediv('register-content')">Login</button>
     </form>
     <br>
     <button onclick="togglediv('register-content')">Create an account</button>
 </div>
 <div id="register-content" class="hidden content">
     <h1>Register</h1>
-    <form id="register-form" onsubmit="return false;">
+    <form id="register-form" onsubmit="return false;" class="register">
         <input type="text" name="username" placeholder="username">
+        <br>
         <input type="text" name="email" placeholder="email">
+        <br>
         <input type="password" name="password" placeholder="password">
+        <br>
         <button id="register-button">Register</button>
     </form>
 </div>
