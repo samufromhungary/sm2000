@@ -1,7 +1,6 @@
 package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.TaskDao;
-import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
 
 import java.sql.*;
@@ -13,8 +12,8 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
     public DatabaseTaskDao(Connection connection){super(connection);}
 
     @Override
-    public List<Task> findAll() throws SQLException {
-        String sql ="SELECT id, title, accounts_id, description FROM tasks";
+    public List<Task> findAll() throws SQLException{
+        String sql ="SELECT id, title, accounts_id, description from tasks";
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             List<Task> tasks = new ArrayList<>();
@@ -22,6 +21,22 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
                 tasks.add(fetchTask(resultSet));
             }
             return tasks;
+        }
+    }
+
+
+    @Override
+    public List<Task> findAllById(int accounts_id) throws SQLException {
+        String sql = "SELECT id, title, accounts_id, description FROM tasks where accounts_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, accounts_id);
+            List<Task> tasks = new ArrayList<>();
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    tasks.add(fetchTask(resultSet));
+                }
+                return tasks;
+            }
         }
     }
 

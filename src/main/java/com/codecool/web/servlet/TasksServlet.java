@@ -25,8 +25,10 @@ public final class TasksServlet extends AbstractServlet {
         try (Connection connection = getConnection(req.getServletContext())) {
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao);
+            Account account = (Account) req.getSession().getAttribute("account");
+            int accounts_id = account.getId();
 
-            List<Task> tasks = taskService.getTasks();
+            List<Task> tasks = taskService.getTasksById(accounts_id);
 
             sendMessage(resp, HttpServletResponse.SC_OK, tasks);
         } catch (SQLException ex) {

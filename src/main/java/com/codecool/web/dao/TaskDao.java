@@ -9,6 +9,8 @@ public interface TaskDao {
 
     List<Task> findAll() throws SQLException;
 
+    List<Task> findAllById(int accounts_id) throws SQLException;
+
     Task findByTitle(String title) throws SQLException;
 
     Task add(String title, int accounts_id, String description) throws SQLException;

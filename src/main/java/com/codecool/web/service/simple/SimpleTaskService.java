@@ -22,6 +22,11 @@ public final class SimpleTaskService implements TaskService {
     }
 
     @Override
+    public List<Task> getTasksById(int accounts_id) throws SQLException{
+        return taskDao.findAllById(accounts_id);
+    }
+
+    @Override
     public Task getTask(String title) throws SQLException, ServiceException {
         try {
             return taskDao.findByTitle(title);
