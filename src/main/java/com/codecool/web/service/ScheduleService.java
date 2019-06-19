@@ -14,5 +14,5 @@ public interface ScheduleService {
 
     Schedule getSchedule(String title) throws SQLException, ServiceException;
 
-    Schedule addSchedule(String title, int days) throws SQLException, ServiceException;
+    Schedule addSchedule(String title, int days, int accounts_id) throws SQLException, ServiceException;
 }
