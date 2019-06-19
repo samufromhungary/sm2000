@@ -70,17 +70,21 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
     }
 
     @Override
-    public Schedule add(String title, int days) throws SQLException {
-        if (title == null || "".equals(title) || days <= 0 || days > 7) {
-            throw new IllegalArgumentException("Something is wrong");
+    public Schedule add(String title, int days, int accounts_id) throws SQLException {
+        if (title == null || "".equals(title)) {
+            throw new IllegalArgumentException("Title cannot be empty");
+        }
+        if(days <= 0 || days > 7){
+            throw new IllegalArgumentException("Days cannot be less than 1, or more than 7");
         }
         if(!scheduleAlreadyExists(title)){
             boolean autoCommit = connection.getAutoCommit();
             connection.setAutoCommit(false);
-            String sql = "INSERT INTO schedules (title, days) VALUES (?, ?)";
+            String sql = "INSERT INTO schedules (title, days, accounts_id) VALUES (?, ?, ?)";
             try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, title);
                 statement.setInt(2, days);
+                statement.setInt(3, accounts_id);
                 executeInsert(statement);
                 int id = fetchGeneratedId(statement);
                 return new Schedule(id,title,days);

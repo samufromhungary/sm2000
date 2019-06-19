@@ -13,7 +13,7 @@ public interface ScheduleDao {
 
     Schedule findByTitle(String title) throws SQLException;
 
-    Schedule add(String title, int days) throws SQLException;
+    Schedule add(String title, int days, int accounts_id) throws SQLException;
 
     void modifyTitle(String oldTitle, String newTitle) throws SQLException;
 
