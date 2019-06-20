@@ -374,6 +374,15 @@
         <input type="text" name="description">
         <button onclick="onTaskAddClicked();">Add</button>
     </form>
+    <h2>Delete from tasks</h2>
+    <form id="task-delete-form" onsubmit="return false">
+        <select name="taskIds" multiple>
+        </select>
+        <button onclick="onTaskDeleteClicked();">Delete</button>
+    </form>
+</div>
+<div id="back-to-profile-content" class="hidden content">
+    <button onclick="onBackToProfileClicked();">Back to profile</button>
 </div>
 <div id="logout-content" class="hidden content">
     <button id="logout-button">Logout</button>
