@@ -45,4 +45,13 @@ public final class SimpleScheduleService implements ScheduleService {
             throw new ServiceException(ex.getMessage());
         }
     }
+
+    @Override
+    public void deleteSchedule(String title) throws SQLException, ServiceException{
+        try{
+            scheduleDao.delete(title);
+        }catch (IllegalArgumentException ex){
+            throw new ServiceException(ex.getMessage());
+        }
+    }
 }

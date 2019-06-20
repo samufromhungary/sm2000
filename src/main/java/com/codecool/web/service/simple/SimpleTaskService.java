@@ -54,4 +54,22 @@ public final class SimpleTaskService implements TaskService {
             throw new ServiceException(ex.getMessage());
         }
     }
+
+    @Override
+    public void modifyTitle(String oldTitle, String newTitle) throws SQLException, ServiceException{
+        try{
+            taskDao.modifyTitle(oldTitle,newTitle);
+        }catch (IllegalArgumentException ex){
+            throw new ServiceException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void modifyDescription(String title, String description) throws SQLException, ServiceException{
+        try{
+            taskDao.modifyDescription(title,description);
+        }catch (IllegalArgumentException ex){
+            throw new ServiceException(ex.getMessage());
+        }
+    }
 }
