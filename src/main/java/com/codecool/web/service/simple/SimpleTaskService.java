@@ -45,4 +45,13 @@ public final class SimpleTaskService implements TaskService {
             throw new ServiceException(ex.getMessage());
         }
     }
+
+    @Override
+    public void deleteTask(String title) throws SQLException, ServiceException{
+        try{
+            taskDao.delete(title);
+        }catch (IllegalArgumentException ex){
+            throw new ServiceException(ex.getMessage());
+        }
+    }
 }
