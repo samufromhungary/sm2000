@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet("protected/tasks")
+@WebServlet("/protected/deleteTask")
 public final class TasksDeleteServlet extends AbstractServlet {
 
     @Override
@@ -23,8 +23,8 @@ public final class TasksDeleteServlet extends AbstractServlet {
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao);
 
-            String deletable_title = req.getParameter("deletable_title");
-            taskService.deleteTask(deletable_title);
+            String title = req.getParameter("title");
+            taskService.deleteTask(title);
 
             sendMessage(resp, HttpServletResponse.SC_OK, "Deleted successfully");
         } catch (ServiceException ex) {
