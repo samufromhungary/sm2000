@@ -80,6 +80,12 @@
         <button onclick="onScheduleAddClicked();">Add</button>
     </form>
 </div>
+<div id="schedule-content" class="hidden content">
+    <h1>Schedule</h1>
+    <p>ID: <span id="schedule-id"></span></p>
+    <p>Title: <span id="schedule-title"></span></p>
+    <p>Days: <span id="schedule-days"></span></p>
+</div>
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
     <table id="tasks">
