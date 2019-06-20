@@ -342,7 +342,7 @@
         <tbody>
         </tbody>
     </table>
-    <h2>Add new shop</h2>
+    <h2>Add new schedule</h2>
     <form id="schedule-form" onsubmit="return false;">
         <input type="text" name="title">
         <input type="text" name="days">
