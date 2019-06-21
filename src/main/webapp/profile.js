@@ -14,7 +14,7 @@ function onTasksClicked() {
 }
 function onProfileLoad(user) {
     clearMessages();
-    showContents(['profile-content','logout-content']);
+    showContents(['profile-content','logout-content','schedule']);
 
     const userEmailSpandEl = document.getElementById('user-email');
     const userPasswordSpanEl = document.getElementById('user-password');
