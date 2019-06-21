@@ -85,7 +85,7 @@ function onSchedulesLoad(schedules) {
 
 function onSchedulesResponse() {
     if (this.status === OK) {
-        showContents(['schedules-content', 'back-to-profile-content', 'logout-content']);
+        showContents(['schedules-content', 'back-to-profile-content', 'logout-content', 'schedule']);
         onSchedulesLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);
