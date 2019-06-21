@@ -28,7 +28,7 @@ public class RegisterServlet extends AbstractServlet {
             String email = req.getParameter("email");
             String password = req.getParameter("password");
 
-            Account account = registerService.registerUser(username,email, password,"regular");
+            Account account = registerService.registerUser(username, email, password, "regular");
             req.getSession().setAttribute("account", account);
 
             sendMessage(resp, HttpServletResponse.SC_OK, account);

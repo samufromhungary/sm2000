@@ -4,6 +4,7 @@ body {
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-align: center;
 }
 
 .login {
@@ -33,4 +34,10 @@ h1 {
 .hidden {
     display: none;
 }
+
+li {
+    text-align: center;
+    list-style-position: inside;
+}
+
 

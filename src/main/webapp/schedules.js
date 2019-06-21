@@ -1,12 +1,13 @@
 let schedulesTableEl;
 let schedulesTableBodyEl;
+let scheduleTitle;
 
 function onScheduleClicked() {
     const scheduleId = this.dataset.scheduleId;
-
+    
     const params = new URLSearchParams();
     params.append('id', scheduleId);
-
+    
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleResponse);
     xhr.addEventListener('error', onNetworkError);
@@ -14,6 +15,71 @@ function onScheduleClicked() {
     xhr.send();
 }
 
+function addAllSchedules(schedules) {
+    const selectEl = document.querySelector('#schedule-delete-form > select');
+    
+    removeAllChildren(selectEl);
+    
+    for (let i= 0; i < schedules.length; i++) {
+        const schedule = schedules[i];
+        
+        const optionEl = document.createElement('option');
+        optionEl.value = schedule.title;
+        optionEl.textContent = `${schedule.id} - ${schedule.title} - ${schedule.days}`;
+        
+        selectEl.appendChild(optionEl);
+    }
+}
+function onSchedulesLoad(schedules) {
+    schedulesTableEl = document.getElementById('schedules');
+    schedulesTableBodyEl = schedulesTableEl.querySelector('tbody');
+    
+    const selectEl = document.querySelector('#schedule-delete-form > select');
+    
+    removeAllChildren(selectEl);
+    
+    for (let i= 0; i < schedules.length; i++) {
+        const schedule = schedules[i];
+        
+        const optionEl = document.createElement('option');
+        optionEl.value = schedule.title;
+        optionEl.textContent = `${schedule.id} - ${schedule.title} - ${schedule.days}`;
+        
+        selectEl.appendChild(optionEl);
+    }
+    
+    appendSchedules(schedules);
+}
+function appendSchedule(schedule) {
+    const idTdEl = document.createElement('td');
+    idTdEl.textContent = schedule.id;
+
+    const aEl = document.createElement('a');
+    aEl.textContent = schedule.title;
+    aEl.href = 'javascript:void(0);';
+    aEl.dataset.scheduleId = schedule.id;
+    aEl.addEventListener('click', onSchedulesClicked);
+
+    const titleTdEl = document.createElement('td');
+    titleTdEl.appendChild(aEl);
+
+    const daysTdEl = document.createElement('td');
+    daysTdEl.textContent = schedule.days;
+
+    const trEl = document.createElement('tr');
+    trEl.appendChild(idTdEl);
+    trEl.appendChild(titleTdEl);
+    trEl.appendChild(daysTdEl);
+    schedulesTableBodyEl.appendChild(trEl);
+}
+function appendSchedules(schedules) {
+    removeAllChildren(schedulesTableBodyEl);
+
+    for (let i = 0; i < schedules.length; i++) {
+        const schedule = schedules[i];
+        appendSchedule(schedule);
+    }
+}
 function onScheduleAddResponse() {
    clearMessages();
     if (this.status === OK) {
@@ -43,49 +109,35 @@ function onScheduleAddClicked() {
     xhr.send(params);
 }
 
-function appendSchedule(schedule) {
-    const idTdEl = document.createElement('td');
-    idTdEl.textContent = schedule.id;
-
-    const aEl = document.createElement('a');
-    aEl.textContent = schedule.title;
-    aEl.href = 'javascript:void(0);';
-    aEl.dataset.scheduleId = schedule.id;
-    aEl.addEventListener('click', onScheduleClicked);
-
-    const titleTdEl = document.createElement('td');
-    titleTdEl.appendChild(aEl);
-
-    const daysTdEl = document.createElement('td');
-    daysTdEl.textContent = schedule.days;
-
-    const trEl = document.createElement('tr');
-    trEl.appendChild(idTdEl);
-    trEl.appendChild(titleTdEl);
-    trEl.appendChild(daysTdEl);
-    schedulesTableBodyEl.appendChild(trEl);
-}
-
-function appendSchedules(schedules) {
-    removeAllChildren(schedulesTableBodyEl);
-
-    for (let i = 0; i < schedules.length; i++) {
-        const schedule = schedules[i];
-        appendSchedule(schedule);
+function onScheduleDeleteClicked() {
+    const scheduleDeleteForm = document.forms['schedule-delete-form'];
+    
+    const scheduleTitlesSelectEl = scheduleDeleteForm.querySelector('select[name="scheduleTitles"]');
+    
+    const params = new URLSearchParams();
+    for (let i = 0; i < scheduleTitlesSelectEl.selectedOptions.length; i++) {
+        params.append('selectedTitle', scheduleTitlesSelectEl.selectedOptions[i].value);
     }
+    
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onScheduleDeleteResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('POST', 'protected/deleteSchedule');
+    xhr.send(params);
 }
 
-function onSchedulesLoad(schedules) {
-    schedulesTableEl = document.getElementById('schedules');
-    schedulesTableBodyEl = schedulesTableEl.querySelector('tbody');
-
-    appendSchedules(schedules);
-
+function onScheduleDeleteResponse() {
+    clearMessages();
+    if (this.status === OK) {
+        onSchedulesLoad(JSON.parse(this.responseText));
+    } else {
+        onOtherResponse(schedulesContentDivEl, this);
+    }
 }
 
 function onSchedulesResponse() {
     if (this.status === OK) {
-        showContents(['schedules-content', 'back-to-profile-content', 'logout-content']);
+        showContents(['schedules-content', 'back-to-profile-content', 'logout-content', 'schedule']);
         onSchedulesLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(schedulesContentDivEl, this);

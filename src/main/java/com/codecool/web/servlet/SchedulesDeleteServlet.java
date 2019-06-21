@@ -23,7 +23,7 @@ public final class SchedulesDeleteServlet extends AbstractServlet {
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
 
-            String title = req.getParameter("title");
+            String title = req.getParameter("selectedTitle");
             scheduleService.deleteSchedule(title);
 
             sendMessage(resp, HttpServletResponse.SC_OK, "Deleted successfully");
