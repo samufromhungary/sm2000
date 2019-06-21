@@ -1,19 +1,23 @@
 package com.codecool.web.service.simple;
 
+import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.dao.TaskDao;
+import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
 import com.codecool.web.service.TaskService;
 import com.codecool.web.service.exception.ServiceException;
 
+import java.security.Provider;
 import java.sql.SQLException;
 import java.util.List;
 
 public final class SimpleTaskService implements TaskService {
 
     private final TaskDao taskDao;
+    private final ScheduleDao scheduleDao;
 
-    public SimpleTaskService(TaskDao taskDao) {
-        this.taskDao = taskDao;
+    public SimpleTaskService(TaskDao taskDao, ScheduleDao scheduleDao) {
+        this.taskDao = taskDao; this.scheduleDao = scheduleDao;
     }
 
     @Override
@@ -70,6 +74,44 @@ public final class SimpleTaskService implements TaskService {
             taskDao.modifyDescription(title,description);
         }catch (IllegalArgumentException ex){
             throw new ServiceException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void addTaskToSchedules(int taskId, int... scheduleIds) throws SQLException, ServiceException{
+        if( scheduleIds == null || scheduleIds.length == 0){
+            throw new ServiceException("Schedule ids cannot be null or empty.");
+        }
+        try{
+            taskDao.add(taskId, parseScheduleIds(scheduleIds));
+        }catch (NumberFormatException ex){
+            throw new ServiceException("Task id must be an integer");
+        }catch (IllegalArgumentException ex){
+            throw new ServiceException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public List<Schedule> getTaskSchedules(int taskId) throws SQLException, ServiceException{
+        try{
+            return scheduleDao.findAllByTaskId(taskId);
+        }catch (NumberFormatException ex){
+            throw new ServiceException("Task id must be an integer");
+        }catch (IllegalArgumentException ex){
+            throw new ServiceException(ex.getMessage());
+        }
+    }
+
+    private int[] parseScheduleIds(int[] scheduleIds) throws ServiceException{
+        try{
+            int[] ids = new int[scheduleIds.length];
+            for (int i = 0; i < scheduleIds.length ; i++) {
+                int scheduleId = scheduleIds[i];
+                ids[i] = scheduleId;
+            }
+            return ids;
+        }catch (NumberFormatException ex){
+            throw new ServiceException("Schedule ids must be integers");
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.codecool.web.servlet;
 
+import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.dao.TaskDao;
+import com.codecool.web.dao.database.DatabaseScheduleDao;
 import com.codecool.web.dao.database.DatabaseTaskDao;
 import com.codecool.web.service.TaskService;
 import com.codecool.web.service.exception.ServiceException;
@@ -21,7 +23,8 @@ public class TasksModifyServlet extends AbstractServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try(Connection connection = getConnection(req.getServletContext())){
             TaskDao taskDao = new DatabaseTaskDao(connection);
-            TaskService taskService = new SimpleTaskService(taskDao);
+            ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
+            TaskService taskService = new SimpleTaskService(taskDao, scheduleDao);
 
             String title = req.getParameter("title");
             String newTitle = req.getParameter("newTitle");

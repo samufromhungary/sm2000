@@ -54,18 +54,67 @@
 </div>
 <div id="profile-content" class="hidden content">
     <h1>Profile</h1>
-    <p>Email: <span id="user-email"></span></p>
-    <p>Password: <span id="user-password"></span></p>
+    <p>Current user: <span id="user-email"></span></p>
     <ul>
         <li><a href="javascript:void(0);" onclick="onSchedulesClicked();">Schedules</a></li>
         <li><a href="javascript:void(0);" onclick="onTasksClicked();">Tasks</a></li>
     </ul>
 </div>
-<body>
-<div id="schedule" class="hidden content">
-    <h1>Schedule</h1>
-    <table id="orarend" style="text-align:center;" align="center">
+<div id="schedules-content" class="hidden content">
+    <h1>Schedules</h1>
+    <table id="schedules" align="center">
         <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Days</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <br>
+    <h2>Add new schedule</h2>
+    <form id="schedule-form" onsubmit="return false;">
+        <input type="text" name="title">
+        <input type="text" name="days">
+        <button onclick="onScheduleAddClicked();">Add</button>
+    </form>
+</div>
+<div id="schedule-content" class="hidden content">
+    <h1>Schedule</h1>
+    <p>ID: <span id="schedule-id"></span></p>
+    <p>Title: <span id="schedule-title"></span></p>
+    <p>Days: <span id="schedule-days"></span></p>
+</div>
+<div id="tasks-content" class="hidden content">
+    <h1>Tasks</h1>
+    <table id="tasks" align="center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <h2>Add new task</h2>
+    <form id="task-form" onsubmit="return false;">
+        <input type="text" name="title">
+        <input type="text" name="description">
+        <button onclick="onTaskAddClicked();">Add</button>
+    </form>
+    <h2>Delete from tasks</h2>
+    <form id="task-delete-form" onsubmit="return false">
+        <select name="taskTitles" multiple>
+        </select>
+        <button onclick="onTaskDeleteClicked();">Delete</button>
+    </form>
+</div><div id="schedule" class="hidden content">
+    <h1>Schedule</h1>
+    <table class="bigtable" style="text-align:center;" align="center">
         <tr>
             <td>Hours</td>
             <td>Day1</td>
@@ -326,64 +375,13 @@
             <td></td>
             <td></td>
         </tr>
-        </thead>
     </table>
 </div>
-<div id="schedules-content" class="hidden content">
-    <h1>Schedules</h1>
-    <table id="schedules">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Days</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <h2>Add new schedule</h2>
-    <form id="schedule-form" onsubmit="return false;">
-        <input type="text" name="title">
-        <input type="text" name="days">
-        <button onclick="onScheduleAddClicked();">Add</button>
-    </form>
-    <h2>Delete from tasks</h2>
-    <form id="schedule-delete-form" onsubmit="return false">
-        <select name="scheduleTitles" multiple>
-        </select>
-        <button onclick="onScheduleDeleteClicked();">Delete</button>
-    </form>
-</div>
-<div id="tasks-content" class="hidden content">
-    <h1>Tasks</h1>
-    <table id="tasks">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <h2>Add new task</h2>
-    <form id="task-form" onsubmit="return false;">
-        <input type="text" name="title">
-        <input type="text" name="description">
-        <button onclick="onTaskAddClicked();">Add</button>
-    </form>
-    <h2>Delete from tasks</h2>
-    <form id="task-delete-form" onsubmit="return false">
-        <select name="taskTitles" multiple>
-        </select>
-        <button onclick="onTaskDeleteClicked();">Delete</button>
-    </form>
-</div>
+<br>
 <div id="back-to-profile-content" class="hidden content">
     <button onclick="onBackToProfileClicked();">Back to profile</button>
 </div>
+<br>
 <div id="logout-content" class="hidden content">
     <button id="logout-button">Logout</button>
 </div>

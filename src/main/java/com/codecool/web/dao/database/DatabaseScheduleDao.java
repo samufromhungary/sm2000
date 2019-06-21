@@ -139,6 +139,25 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
         }
     }
 
+    @Override
+    public List<Schedule> findAllByTaskId(int taskId) throws SQLException{
+        List<Schedule> schedules = new ArrayList<>();
+        String sql = "SELECT s.id, s.title " +
+            "FROM schedules AS s " +
+            "JOIN coordinated AS co ON s.id = co.schedules_id " +
+            "JOIN tasks AS t ON t.id = co.tasks_id " +
+            "WHERE t.id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, taskId);
+            try(ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()){
+                    schedules.add(fetchSchedule(resultSet));
+                }
+            }
+        }
+        return schedules;
+    }
+
     private Schedule fetchSchedule(ResultSet resultSet)throws SQLException{
         int id = resultSet.getInt("id");
         String title = resultSet.getString("title");

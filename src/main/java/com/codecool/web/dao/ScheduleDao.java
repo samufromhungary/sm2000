@@ -20,4 +20,6 @@ public interface ScheduleDao {
     void modifyDays (String title, int days) throws SQLException;
 
     void delete (String title) throws SQLException;
+
+    List<Schedule> findAllByTaskId(int taskId) throws SQLException;
 }
