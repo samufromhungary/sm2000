@@ -80,6 +80,12 @@
         <input type="text" name="days">
         <button onclick="onScheduleAddClicked();">Add</button>
     </form>
+    <h2>Delete schedule</h2>
+    <form id="schedule-delete-form" onsubmit="return false">
+        <select name="scheduleTitles" multiple>
+        </select>
+        <button onclick="onScheduleDeleteClicked();">Delete</button>
+    </form>
 </div>
 <div id="schedule-content" class="hidden content">
     <h1>Schedule</h1>
@@ -375,13 +381,13 @@
             <td></td>
             <td></td>
         </tr>
+        </thead>
     </table>
 </div>
 <br>
 <div id="back-to-profile-content" class="hidden content">
     <button onclick="onBackToProfileClicked();">Back to profile</button>
 </div>
-<br>
 <div id="logout-content" class="hidden content">
     <button id="logout-button">Logout</button>
 </div>
