@@ -26,7 +26,7 @@ public final class TasksDeleteServlet extends AbstractServlet {
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao, scheduleDao);
 
-            String title = req.getParameter("title");
+            String title = req.getParameter("selectedTitle");
             taskService.deleteTask(title);
 
             sendMessage(resp, HttpServletResponse.SC_OK, "Deleted successfully");

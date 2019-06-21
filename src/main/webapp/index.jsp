@@ -342,7 +342,7 @@
         <tbody>
         </tbody>
     </table>
-    <h2>Add new shop</h2>
+    <h2>Add new schedule</h2>
     <form id="schedule-form" onsubmit="return false;">
         <input type="text" name="title">
         <input type="text" name="days">
@@ -376,7 +376,7 @@
     </form>
     <h2>Delete from tasks</h2>
     <form id="task-delete-form" onsubmit="return false">
-        <select name="taskIds" multiple>
+        <select name="taskTitles" multiple>
         </select>
         <button onclick="onTaskDeleteClicked();">Delete</button>
     </form>
