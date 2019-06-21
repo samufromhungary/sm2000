@@ -78,7 +78,7 @@ public final class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public void addTaskToSchedules(int taskId, int... scheduleIds) throws SQLException, ServiceException{
+    public void addTaskToSchedules(int taskId, String... scheduleIds) throws SQLException, ServiceException{
         if( scheduleIds == null || scheduleIds.length == 0){
             throw new ServiceException("Schedule ids cannot be null or empty.");
         }
@@ -102,12 +102,12 @@ public final class SimpleTaskService implements TaskService {
         }
     }
 
-    private int[] parseScheduleIds(int[] scheduleIds) throws ServiceException{
+    private int[] parseScheduleIds(String[] scheduleIds) throws ServiceException{
         try{
             int[] ids = new int[scheduleIds.length];
             for (int i = 0; i < scheduleIds.length ; i++) {
-                int scheduleId = scheduleIds[i];
-                ids[i] = scheduleId;
+                String scheduleId = scheduleIds[i];
+                ids[i] = Integer.parseInt(scheduleId);
             }
             return ids;
         }catch (NumberFormatException ex){

@@ -23,7 +23,7 @@ public interface TaskService {
 
     void modifyDescription(String title, String description) throws SQLException, ServiceException;
 
-    void addTaskToSchedules(int taskId, int... scheduleIds) throws SQLException, ServiceException;
+    void addTaskToSchedules(int taskId, String... scheduleIds) throws SQLException, ServiceException;
 
     List<Schedule> getTaskSchedules(int taskId) throws SQLException, ServiceException;
 }
