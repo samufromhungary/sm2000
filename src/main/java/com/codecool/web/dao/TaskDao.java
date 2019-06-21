@@ -20,4 +20,6 @@ public interface TaskDao {
     void modifyDescription(String title, String description) throws SQLException;
 
     void delete(String title) throws SQLException;
+
+    void add(int taskId, int... scheduleIds) throws SQLException;
 }

@@ -1,5 +1,6 @@
 package com.codecool.web.service;
 
+import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
 import com.codecool.web.service.exception.ServiceException;
 
@@ -21,5 +22,9 @@ public interface TaskService {
     void modifyTitle(String oldTitle, String newTitle) throws SQLException, ServiceException;
 
     void modifyDescription(String title, String description) throws SQLException, ServiceException;
+
+    void addTaskToSchedules(int taskId, int... scheduleIds) throws SQLException, ServiceException;
+
+    List<Schedule> getTaskSchedules(int taskId) throws SQLException, ServiceException;
 }
 

@@ -134,6 +134,26 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
         }
     }
 
+    @Override
+    public void add(int taskId, int... scheduleIds) throws SQLException{
+        boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
+        String sql="INSERT INTO coordinated (tasks_id, schedules_id) VALUES (?, ?)";
+        try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);){
+            statement.setInt(1, taskId);
+            for (int scheduleId : scheduleIds){
+                statement.setInt(2, scheduleId);
+                executeInsert(statement);
+            }
+            connection.commit();
+        }catch (SQLException ex){
+            connection.rollback();
+            throw ex;
+        }finally {
+            connection.setAutoCommit(autoCommit);
+        }
+    }
+
     private Task fetchTask(ResultSet resultSet)throws SQLException{
         int id = resultSet.getInt("id");
         String title = resultSet.getString("title");
