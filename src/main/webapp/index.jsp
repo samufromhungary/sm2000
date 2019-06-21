@@ -376,7 +376,7 @@
     </form>
     <h2>Delete from tasks</h2>
     <form id="task-delete-form" onsubmit="return false">
-        <select name="taskIds" multiple>
+        <select name="taskTitles" multiple>
         </select>
         <button onclick="onTaskDeleteClicked();">Delete</button>
     </form>
