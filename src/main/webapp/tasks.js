@@ -19,6 +19,7 @@ function onTaskAddResponse() {
    clearMessages();
     if (this.status === OK) {
         appendTask(JSON.parse(this.responseText));
+        onTasksClicked();
     } else {
         onOtherResponse(tasksContentDivEl, this);
     }

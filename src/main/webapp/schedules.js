@@ -84,6 +84,7 @@ function onScheduleAddResponse() {
    clearMessages();
     if (this.status === OK) {
         appendSchedule(JSON.parse(this.responseText));
+        onSchedulesClicked();
     } else {
         onOtherResponse(schedulesContentDivEl, this);
     }
