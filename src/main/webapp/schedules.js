@@ -121,7 +121,7 @@ function onScheduleDeleteClicked() {
     }
     
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onScheduleDeleteResponse);
+    xhr.addEventListener('load', onSchedulesClicked);
     xhr.addEventListener('error', onNetworkError);
     xhr.open('POST', 'protected/deleteSchedule');
     xhr.send(params);
