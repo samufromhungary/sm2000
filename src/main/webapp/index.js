@@ -8,6 +8,7 @@ let loginContentDivEl;
 let profileContentDivEl;
 let tasksContentDivEl;
 let schedulesContentDivEl;
+let scheduleContentDivEl;
 let backToProfileContentDivEl;
 let logoutContentDivEl;
 let registerContentDivEl;
@@ -107,6 +108,7 @@ function onLoad() {
     registerContentDivEl = document.getElementById('register-content');
     tasksContentDivEl = document.getElementById('tasks-content');
     schedulesContentDivEl = document.getElementById('schedules-content');
+    scheduleContentDivEl = document.getElementById('schedules-content');
     backToProfileContentDivEl = document.getElementById('back-to-profile-content');
     logoutContentDivEl = document.getElementById('logout-content');
 
