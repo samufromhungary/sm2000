@@ -80,6 +80,13 @@
         <input type="text" name="days">
         <button onclick="onScheduleAddClicked();">Add</button>
     </form>
+    <h2>Modify schedule</h2>
+    <form id="modify-schedule-form" onsubmit="return false;">
+        <input type="text" name="title">
+        <input type="text" name="newTitle">
+        <input type="text" name="days">
+        <button onclick="onScheduleModifyClicked();">Modify</button>
+    </form>
     <h2>Delete schedule</h2>
     <form id="schedule-delete-form" onsubmit="return false">
         <select name="scheduleTitles" multiple>
@@ -111,6 +118,13 @@
         <input type="text" name="title">
         <input type="text" name="description">
         <button onclick="onTaskAddClicked();">Add</button>
+    </form>
+    <h2>Modify task</h2>
+    <form id=modify-task-form onsubmit="return false;">
+        <input type="text" name="title">
+        <input type="text" name="newTitle">
+        <input type="text" name="description">
+        <button onclick="onTaskModifyClicked();">Modify</button>
     </form>
     <h2>Delete from tasks</h2>
     <form id="task-delete-form" onsubmit="return false">

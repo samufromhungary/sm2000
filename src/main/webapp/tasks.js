@@ -129,6 +129,28 @@ function appendTasks(tasks) {
         appendTask(task);
     }
 }
+function onTaskModifyClicked(){
+    const scheduleFormEl = document.forms['modify-task-form']
+    
+    const modifyTitleInputEl = scheduleFormEl.querySelector('input[name="title"]');
+    const newTitleInputEl = scheduleFormEl.querySelector('input[name="newTitle"]');
+    const modifyDescriptionInputEl = scheduleFormEl.querySelector('input[name="description"]');
+
+    const modifyTitle = modifyTitleInputEl.value;
+    const newTitle = newTitleInputEl.value;
+    const modifyDescription = modifyDescriptionInputEl.value;
+
+    const params = new URLSearchParams();
+    params.append('title',modifyTitle);
+    params.append('newTitle',newTitle);
+    params.append('description',modifyDescription);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onTasksClicked);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('POST', 'protected/modifyTask');
+    xhr.send(params);
+}
 function onTaskDeleteResponse() {
     clearMessages();
     if (this.status === OK) {

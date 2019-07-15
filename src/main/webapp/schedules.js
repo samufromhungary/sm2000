@@ -109,6 +109,28 @@ function onScheduleAddClicked() {
     xhr.open('POST', 'protected/schedules');
     xhr.send(params);
 }
+function onScheduleModifyClicked(){
+    const scheduleFormEl = document.forms['modify-schedule-form']
+    
+    const modifyTitleInputEl = scheduleFormEl.querySelector('input[name="title"]');
+    const newTitleInputEl = scheduleFormEl.querySelector('input[name="newTitle"]');
+    const modifyDaysInputEl = scheduleFormEl.querySelector('input[name="days"]');
+
+    const modifyTitle = modifyTitleInputEl.value;
+    const newTitle = newTitleInputEl.value;
+    const modifyDays = modifyDaysInputEl.value;
+
+    const params = new URLSearchParams();
+    params.append('title',modifyTitle);
+    params.append('newTitle',newTitle);
+    params.append('days',modifyDays);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onSchedulesClicked);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('POST', 'protected/modifySchedule');
+    xhr.send(params);
+}
 
 function onScheduleDeleteClicked() {
     const scheduleDeleteForm = document.forms['schedule-delete-form'];
