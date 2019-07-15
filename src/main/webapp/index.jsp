@@ -76,15 +76,15 @@
     <br>
     <h2>Add new schedule</h2>
     <form id="schedule-form" onsubmit="return false;">
-        <input type="text" name="title">
-        <input type="text" name="days">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="days" placeholder="Days">
         <button onclick="onScheduleAddClicked();">Add</button>
     </form>
     <h2>Modify schedule</h2>
     <form id="modify-schedule-form" onsubmit="return false;">
-        <input type="text" name="title">
-        <input type="text" name="newTitle">
-        <input type="text" name="days">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="newTitle" placeholder="New Title">
+        <input type="text" name="days" placeholder="Days">
         <button onclick="onScheduleModifyClicked();">Modify</button>
     </form>
     <h2>Delete schedule</h2>
@@ -96,9 +96,15 @@
 </div>
 <div id="schedule-content" class="hidden content">
     <h1>Schedule</h1>
-    <p>ID: <span id="schedule-id"></span></p>
-    <p>Title: <span id="schedule-title"></span></p>
-    <p>Days: <span id="schedule-days"></span></p>
+    <table id="schedule" align="center">
+        <thead>
+            <tr>
+                <th>Hours</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 </div>
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
@@ -115,15 +121,15 @@
     </table>
     <h2>Add new task</h2>
     <form id="task-form" onsubmit="return false;">
-        <input type="text" name="title">
+        <input type="text" name="title" placeholder="Title">
         <input type="text" name="description">
         <button onclick="onTaskAddClicked();">Add</button>
     </form>
     <h2>Modify task</h2>
     <form id=modify-task-form onsubmit="return false;">
-        <input type="text" name="title">
-        <input type="text" name="newTitle">
-        <input type="text" name="description">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="newTitle" placeholder="New Title">
+        <input type="text" name="description" placeholder="Description">
         <button onclick="onTaskModifyClicked();">Modify</button>
     </form>
     <h2>Delete from tasks</h2>
