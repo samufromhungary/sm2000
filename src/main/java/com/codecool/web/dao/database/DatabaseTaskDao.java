@@ -27,7 +27,7 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public List<Task> findAllById(int accounts_id) throws SQLException {
-        String sql = "SELECT id, title, accounts_id, description FROM tasks where accounts_id = ?";
+        String sql = "SELECT id, title, accounts_id, description FROM tasks where accounts_id = ? GROUP BY id";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, accounts_id);
             List<Task> tasks = new ArrayList<>();
@@ -98,9 +98,13 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
     public void modifyTitle(String oldTitle, String newTitle) throws SQLException {
         String sql = "UPDATE tasks SET title = ? WHERE title = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1, newTitle);
-            statement.setString(2, oldTitle);
-            statement.executeUpdate();
+            if(!newTitle.isBlank()){
+                statement.setString(1, newTitle);
+                statement.setString(2, oldTitle);
+                statement.executeUpdate();
+            }else{
+                throw new IllegalArgumentException("Title is empty");
+            }
         }catch (SQLException ex){
             throw ex;
         }
@@ -110,9 +114,13 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
     public void modifyDescription(String title, String description) throws SQLException {
         String sql = "UPDATE tasks SET description = ? WHERE title = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1, description);
-            statement.setString(2, title);
-            statement.executeUpdate();
+            if(!description.isBlank()){
+                statement.setString(1, description);
+                statement.setString(2, title);
+                statement.executeUpdate();
+            }else{
+                throw new IllegalArgumentException("Description is empty");
+            }
         }catch (SQLException ex){
             throw ex;
         }

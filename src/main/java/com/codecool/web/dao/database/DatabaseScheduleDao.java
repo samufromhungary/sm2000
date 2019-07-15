@@ -29,7 +29,7 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
 
     @Override
     public List<Schedule> findAllById(int accounts_id) throws SQLException{
-        String sql = "SELECT id, title, days, accounts_id FROM schedules where accounts_id = ?";
+        String sql = "SELECT id, title, days, accounts_id FROM schedules WHERE accounts_id = ? GROUP BY id";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, accounts_id);
             List<Schedule> schedules = new ArrayList<>();
@@ -103,9 +103,14 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
     public void modifyTitle(String oldTitle, String newTitle) throws SQLException {
         String sql = "UPDATE schedules SET title = ? WHERE title = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1, newTitle);
-            statement.setString(2, oldTitle);
-            statement.executeUpdate();
+            if(!newTitle.isBlank()){
+                statement.setString(1, newTitle);
+                statement.setString(2, oldTitle);
+                statement.executeUpdate();
+            }else{
+                throw new IllegalArgumentException("Title is empty");
+            }
+
         }catch (SQLException ex){
             throw ex;
         }
@@ -115,9 +120,13 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
     public void modifyDays(String title, int days) throws SQLException {
         String sql = "UPDATE schedules SET days = ? WHERE title = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1, days);
-            statement.setString(2, title);
-            statement.executeUpdate();
+            if (days > 7 || days < 1){
+                throw new IllegalArgumentException("Incorrect days value");
+            }else{
+                statement.setInt(1, days);
+                statement.setString(2, title);
+                statement.executeUpdate();
+            }
         }catch (SQLException ex){
             throw ex;
         }
