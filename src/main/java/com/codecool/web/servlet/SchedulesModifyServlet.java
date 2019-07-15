@@ -24,10 +24,10 @@ public final class SchedulesModifyServlet extends AbstractServlet {
 
             String title = req.getParameter("title");
             String newTitle = req.getParameter("newTitle");
-            int days = Integer.valueOf(req.getParameter("days"));
+            String days = req.getParameter("days");
 
             if (!"".equals(days)){
-                scheduleService.modifyDays(title,days);
+                scheduleService.modifyDays(title,Integer.valueOf(days));
             }
             if(!"".equals(newTitle)){
                 scheduleService.modifyTitle(title,newTitle);
