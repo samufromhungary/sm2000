@@ -97,11 +97,6 @@
     </form>
 </div>
 <div id="schedule-content" class="hidden content">
-    <h1>Schedule</h1>
-    <p>ID: <span id="schedule-id"></span></p>
-    <p>Title: <span id="schedule-title"></span></p>
-    <p>Days: <span id="schedule-days"></span></p>
-
 </div>
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
@@ -135,23 +130,6 @@
         </select>
         <button onclick="onTaskDeleteClicked();">Delete</button>
     </form>
-</div>
-<div id="schedule" class="hidden content">
-    <h1>Schedule</h1>
-    <table class="bigtable" style="text-align:center;" align="center">
-        <thead>
-        <tr>
-            <td>Hours</td>
-            <td>Day1</td>
-            <td>Day2</td>
-            <td>Day3</td>
-            <td>Day4</td>
-            <td>Day5</td>
-            <td>Day6</td>
-            <td>Day7</td>
-        </tr>
-        </thead>
-    </table>
 </div>
 <br>
 <div id="back-to-profile-content" class="hidden content">
