@@ -1,3 +1,8 @@
+drop table if exists accounts cascade ;
+drop table if exists schedules cascade ;
+drop table if exists tasks cascade ;
+drop table if exists coordinated cascade ;
+
 create table if not exists accounts(
     id SERIAL primary key,
     username text not null,
@@ -25,16 +30,32 @@ create table if not exists coordinated(
 	end_date numeric(2)
 );
 
---CREATE OR REPLACE FUNCTION check_account_uniqueness()
---RETURN TRIGGER AS
+--CREATE OR REPLACE FUNCTION check_days()
+--    RETURNS TRIGGER AS
 --    'BEGIN
---        IF (SELECT EXISTS(SELECT 1 FROM accounts WHERE email = NEW.email) = true) THEN
---            RAISE EXCEPTION ''Email already in use'';
---        ELSE
---            RETURN NEW;
---        END IF;
+--        DECLARE
+--            c integer;
+--        BEGIN
+--            SELECT schedules.days INTO c FROM schedules
+--            IF c > 7 OR c < 1 THEN
+--                RAISE EXCEPTION ''Day counter is a value between 1 and 7'';
+--            ELSE
+--                RETURN NEW
+--            END IF;
+--        END;
 --    END;
---'LANGUAGE plpgsql;
+--' LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION check_account_uniqueness()
+RETURNS TRIGGER AS
+    'BEGIN
+        IF (SELECT EXISTS(SELECT 1 FROM accounts WHERE email = NEW.email) = true) THEN
+            RAISE EXCEPTION ''Email already in use'';
+        ELSE
+            RETURN NEW;
+        END IF;
+    END;
+'LANGUAGE plpgsql;
 --
 --CREATE OR REPLACE FUNCTION check_schedule_uniqueness()
 --RETURN TRIGGER AS
@@ -63,11 +84,17 @@ create table if not exists coordinated(
 --    'BEGIN
 --        IF
 --
---CREATE TRIGGER check_account_uniqueness
---    BEFORE INSERT ON accounts
---    FOR EACH ROW
---    EXECUTE PROCEDURE check_account_uniqueness();
+DROP TRIGGER IF EXISTS check_account_uniqueness ON accounts;
 
+CREATE TRIGGER check_account_uniqueness
+    BEFORE INSERT ON accounts
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_account_uniqueness();
+--
+--CREATE TRIGGER check_days
+--    BEFORE INSERT ON schedules
+--    FOR EACH ROW
+--    EXECUTE PROCEDURE check_days();
 
 INSERT INTO accounts (username ,email,password, permission) VALUES
-    ('admin','admin@admin','admin','Admin') on CONFLICT DO NOTHING
+    ('admin','admin@admin','admin','Admin') ON CONFLICT DO NOTHING;
