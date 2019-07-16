@@ -3,10 +3,10 @@ let schedulesTableBodyEl;
 let scheduleTitle;
 
 function onScheduleClicked() {
-    const scheduleId = this.dataset.scheduleId;
+    const scheduleTitle = this.dataset.scheduleTitle;
     
     const params = new URLSearchParams();
-    params.append('id', scheduleId);
+    params.append('title', scheduleTitle);
     
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleResponse);
@@ -57,8 +57,8 @@ function appendSchedule(schedule) {
     const aEl = document.createElement('a');
     aEl.textContent = schedule.title;
     aEl.href = 'javascript:void(0);';
-    aEl.dataset.scheduleId = schedule.id;
-    aEl.addEventListener('click', onSchedulesClicked);
+    aEl.dataset.scheduleTitle = schedule.title;
+    aEl.addEventListener('click', onScheduleClicked);
 
     const titleTdEl = document.createElement('td');
     titleTdEl.appendChild(aEl);
@@ -107,28 +107,6 @@ function onScheduleAddClicked() {
     xhr.addEventListener('load', onScheduleAddResponse);
     xhr.addEventListener('error', onNetworkError);
     xhr.open('POST', 'protected/schedules');
-    xhr.send(params);
-}
-function onScheduleModifyClicked(){
-    const scheduleFormEl = document.forms['modify-schedule-form']
-    
-    const modifyTitleInputEl = scheduleFormEl.querySelector('input[name="title"]');
-    const newTitleInputEl = scheduleFormEl.querySelector('input[name="newTitle"]');
-    const modifyDaysInputEl = scheduleFormEl.querySelector('input[name="days"]');
-
-    const modifyTitle = modifyTitleInputEl.value;
-    const newTitle = newTitleInputEl.value;
-    const modifyDays = modifyDaysInputEl.value;
-
-    const params = new URLSearchParams();
-    params.append('title',modifyTitle);
-    params.append('newTitle',newTitle);
-    params.append('days',modifyDays);
-
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onSchedulesClicked);
-    xhr.addEventListener('error', onNetworkError);
-    xhr.open('POST', 'protected/modifySchedule');
     xhr.send(params);
 }
 

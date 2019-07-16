@@ -7,8 +7,11 @@ const INTERNAL_SERVER_ERROR = 500;
 let loginContentDivEl;
 let profileContentDivEl;
 let tasksContentDivEl;
+
 let schedulesContentDivEl;
+
 let scheduleContentDivEl;
+
 let backToProfileContentDivEl;
 let logoutContentDivEl;
 let registerContentDivEl;
@@ -104,12 +107,19 @@ function setUnauthorized() {
 
 function onLoad() {
     loginContentDivEl = document.getElementById('login-content');
+    
     profileContentDivEl = document.getElementById('profile-content');
+    
     registerContentDivEl = document.getElementById('register-content');
+    
     tasksContentDivEl = document.getElementById('tasks-content');
+    
     schedulesContentDivEl = document.getElementById('schedules-content');
-    scheduleContentDivEl = document.getElementById('schedules-content');
+
+    scheduleContentDivEl = document.getElementById('schedule-content');
+    
     backToProfileContentDivEl = document.getElementById('back-to-profile-content');
+    
     logoutContentDivEl = document.getElementById('logout-content');
 
     const loginButtonEl = document.getElementById('login-button');
