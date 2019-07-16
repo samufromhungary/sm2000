@@ -12,6 +12,7 @@
         <c:url value="/profile.js" var="profileScriptUrl"/>
         <c:url value="/tasks.js" var="tasksScriptUrl"/>
         <c:url value="/schedules.js" var="schedulesScriptUrl"/>
+        <c:url value="/schedule.js" var="scheduleScriptUrl"/>
         <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
         <c:url value="/logout.js" var="logoutScriptUrl"/>
         <link rel="stylesheet" type="text/css" href="${styleUrl}">
@@ -22,6 +23,7 @@
         <script src="${profileScriptUrl}"></script>
         <script src="${tasksScriptUrl}"></script>
         <script src="${schedulesScriptUrl}"></script>
+        <script src="${scheduleScriptUrl}"></script>
         <script src="${backToProfileScriptUrl}"></script>
         <script src="${logoutScriptUrl}"></script>
         <title>App</title>
@@ -93,6 +95,13 @@
         </select>
         <button onclick="onScheduleDeleteClicked();">Delete</button>
     </form>
+</div>
+<div id="schedule-content" class="hidden content">
+    <h1>Schedule</h1>
+    <p>ID: <span id="schedule-id"></span></p>
+    <p>Title: <span id="schedule-title"></span></p>
+    <p>Days: <span id="schedule-days"></span></p>
+
 </div>
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
