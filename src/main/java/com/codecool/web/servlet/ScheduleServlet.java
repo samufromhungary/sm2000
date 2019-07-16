@@ -4,8 +4,10 @@ import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.dao.database.DatabaseScheduleDao;
 import com.codecool.web.model.Account;
 import com.codecool.web.model.Schedule;
+import com.codecool.web.service.LogService;
 import com.codecool.web.service.ScheduleService;
 import com.codecool.web.service.exception.ServiceException;
+import com.codecool.web.service.simple.SimpleLogService;
 import com.codecool.web.service.simple.SimpleScheduleService;
 
 import javax.servlet.ServletException;
@@ -25,12 +27,15 @@ public final class ScheduleServlet extends AbstractServlet {
         try (Connection connection = getConnection(req.getServletContext())) {
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
+            Account account = (Account) req.getSession().getAttribute("account");
+            LogService logService = new SimpleLogService();
 
             String title = req.getParameter("title");
 
             Schedule schedule = scheduleService.getSchedule(title);
 
             sendMessage(resp, HttpServletResponse.SC_OK, schedule);
+            logService.log("Schedule opened: " + schedule.getTitle() + " by user: " + account.getUsername());
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
         }catch (ServiceException ex) {

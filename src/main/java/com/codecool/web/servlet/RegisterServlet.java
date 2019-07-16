@@ -3,9 +3,11 @@ package com.codecool.web.servlet;
 import com.codecool.web.dao.AccountDao;
 import com.codecool.web.dao.database.DatabaseAccountDao;
 import com.codecool.web.model.Account;
+import com.codecool.web.service.LogService;
 import com.codecool.web.service.LoginService;
 import com.codecool.web.service.RegisterService;
 import com.codecool.web.service.exception.ServiceException;
+import com.codecool.web.service.simple.SimpleLogService;
 import com.codecool.web.service.simple.SimpleLoginService;
 import com.codecool.web.service.simple.SimpleRegisterService;
 
@@ -23,6 +25,7 @@ public class RegisterServlet extends AbstractServlet {
         try (Connection connection = getConnection(req.getServletContext())) {
             AccountDao accountDao = new DatabaseAccountDao(connection);
             RegisterService registerService = new SimpleRegisterService(accountDao);
+            LogService logService = new SimpleLogService();
 
             String username = req.getParameter("username");
             String email = req.getParameter("email");
@@ -32,6 +35,7 @@ public class RegisterServlet extends AbstractServlet {
             req.getSession().setAttribute("account", account);
 
             sendMessage(resp, HttpServletResponse.SC_OK, account);
+            logService.log("Account created on username: " + account.getUsername() + " email:" + account.getEmail());
         } catch (ServiceException ex) {
             sendMessage(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
         } catch (SQLException ex) {

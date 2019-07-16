@@ -25,9 +25,6 @@ create table if not exists coordinated(
 	end_date numeric(2)
 );
 
-INSERT INTO accounts (username ,email,password, permission) VALUES
-    ('admin','admin@admin','admin','Admin') on CONFLICT DO NOTHING
-
 --CREATE OR REPLACE FUNCTION check_account_uniqueness()
 --RETURN TRIGGER AS
 --    'BEGIN
@@ -66,3 +63,11 @@ INSERT INTO accounts (username ,email,password, permission) VALUES
 --    'BEGIN
 --        IF
 --
+--CREATE TRIGGER check_account_uniqueness
+--    BEFORE INSERT ON accounts
+--    FOR EACH ROW
+--    EXECUTE PROCEDURE check_account_uniqueness();
+
+
+INSERT INTO accounts (username ,email,password, permission) VALUES
+    ('admin','admin@admin','admin','Admin') on CONFLICT DO NOTHING

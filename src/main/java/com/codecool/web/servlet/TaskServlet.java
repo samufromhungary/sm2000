@@ -5,11 +5,14 @@ import com.codecool.web.dao.TaskDao;
 import com.codecool.web.dao.database.DatabaseScheduleDao;
 import com.codecool.web.dao.database.DatabaseTaskDao;
 import com.codecool.web.dto.TaskDto;
+import com.codecool.web.model.Account;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
+import com.codecool.web.service.LogService;
 import com.codecool.web.service.ScheduleService;
 import com.codecool.web.service.TaskService;
 import com.codecool.web.service.exception.ServiceException;
+import com.codecool.web.service.simple.SimpleLogService;
 import com.codecool.web.service.simple.SimpleScheduleService;
 import com.codecool.web.service.simple.SimpleTaskService;
 
@@ -34,6 +37,8 @@ public final class TaskServlet extends AbstractServlet {
             TaskDao taskDao = new DatabaseTaskDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
             TaskService taskService = new SimpleTaskService(taskDao, scheduleDao);
+            Account account = (Account) req.getSession().getAttribute("account");
+            LogService logService = new SimpleLogService();
 
             String title = req.getParameter("title");
 
