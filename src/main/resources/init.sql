@@ -1,8 +1,3 @@
-drop table if exists accounts cascade ;
-drop table if exists schedules cascade ;
-drop table if exists tasks cascade ;
-drop table if exists coordinated cascade ;
-
 create table if not exists accounts(
     id SERIAL primary key,
     username text not null,
@@ -49,7 +44,7 @@ create table if not exists coordinated(
 CREATE OR REPLACE FUNCTION check_account_uniqueness()
 RETURNS TRIGGER AS
     'BEGIN
-        IF (SELECT EXISTS(SELECT 1 FROM accounts WHERE email = NEW.email) = true) THEN
+        IF (SELECT EXISTS(SELECT 1 FROM accounts WHERE email = NEW.email AND email username != admin) = true) THEN
             RAISE EXCEPTION ''Email already in use'';
         ELSE
             RETURN NEW;
