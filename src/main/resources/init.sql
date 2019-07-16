@@ -44,7 +44,7 @@ create table if not exists coordinated(
 CREATE OR REPLACE FUNCTION check_account_uniqueness()
 RETURNS TRIGGER AS
     'BEGIN
-        IF (SELECT EXISTS(SELECT 1 FROM accounts WHERE email = NEW.email AND email username != ''admin'') = true) THEN
+        IF (SELECT EXISTS(SELECT 1 FROM accounts WHERE email = NEW.email AND username != ''admin'') = true) THEN
             RAISE EXCEPTION ''Email already in use'';
         ELSE
             RETURN NEW;
