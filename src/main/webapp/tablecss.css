@@ -1,6 +1,9 @@
 table, th, td, tr {
   border: 1px solid black;
 }
+default-tr {
+  border: 1px solid black;
+}
 
 table {
   width: 60%;

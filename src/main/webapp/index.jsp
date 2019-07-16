@@ -135,7 +135,8 @@
         </select>
         <button onclick="onTaskDeleteClicked();">Delete</button>
     </form>
-</div><div id="schedule" class="hidden content">
+</div>
+<div id="schedule" class="hidden content">
     <h1>Schedule</h1>
     <table class="bigtable" style="text-align:center;" align="center">
         <thead>
