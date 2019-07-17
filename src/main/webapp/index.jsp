@@ -64,7 +64,7 @@
 </div>
 <div id="schedules-content" class="hidden content">
     <h1>Schedules</h1>
-    <table id="schedules" align="center">
+    <table id="schedules">
         <thead>
             <tr>
                 <th>ID</th>
@@ -100,7 +100,7 @@
 </div>
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
-    <table id="tasks" align="center">
+    <table id="tasks">
         <thead>
             <tr>
                 <th>ID</th>
@@ -114,7 +114,7 @@
     <h2>Add new task</h2>
     <form id="task-form" onsubmit="return false;">
         <input type="text" name="title" placeholder="Title">
-        <input type="text" name="description">
+        <input type="text" name="description" placeholder="Description">
         <button onclick="onTaskAddClicked();">Add</button>
     </form>
     <h2>Modify task</h2>
