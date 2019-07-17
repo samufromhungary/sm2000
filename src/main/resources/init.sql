@@ -60,6 +60,19 @@ RETURNS TRIGGER AS
     END;
 'LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION check_coordinated()
+RETURNS TRIGGER AS
+    'BEGIN
+        IF (NEW.start_date < 0 OR NEW.end_date < 1 OR NEW.start_date > 23 OR NEW.end_date > 24) THEN
+            RAISE EXCEPTION ''Lusta vagyok exception messaget irni, valamelyik date nem jo'';
+        ELSIF (NEW.start_date >= NEW.end_date) THEN
+            RAISE EXCEPTION ''Start date must be earlier than end date'';
+        ELSE
+            RETURN NEW;
+        END IF;
+    END;
+'LANGUAGE plpgsql;
+
 --CREATE OR REPLACE FUNCTION check_schedule_days()
 --    RETURNS TRIGGER AS
 --    'BEGIN
@@ -84,6 +97,7 @@ RETURNS TRIGGER AS
 DROP TRIGGER IF EXISTS check_account_uniqueness ON accounts;
 DROP TRIGGER IF EXISTS check_schedule_uniqueness ON schedules;
 DROP TRIGGER IF EXISTS check_task_uniqueness ON tasks;
+DROP TRIGGER IF EXISTS check_coordinated ON coordinated;
 --DROP TRIGGER IF EXISTS check_schedule_days ON schedules;
 
 CREATE TRIGGER check_account_uniqueness
@@ -100,6 +114,11 @@ CREATE TRIGGER check_task_uniqueness
     BEFORE INSERT ON tasks
     FOR EACH ROW
     EXECUTE PROCEDURE check_task_uniqueness();
+
+CREATE TRIGGER check_coordinated
+    BEFORE INSERT ON coordinated
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_coordinated();
 
 --CREATE TRIGGER check_schedule_days
 --    BEFORE INSERT ON schedules
