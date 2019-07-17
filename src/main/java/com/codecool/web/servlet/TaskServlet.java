@@ -54,7 +54,7 @@ public final class TaskServlet extends AbstractServlet {
 
 //            sendMessage(resp, HttpServletResponse.SC_OK ,new TaskDto(task, schedules, taskSchedules));
             sendMessage(resp, HttpServletResponse.SC_OK, schedule);
-            logService.log("Schedule opened: " + schedule.getTitle() + " by user: " + account.getUsername());
+            logService.log("Task opened: " + schedule.getTitle() + " by user: " + account.getUsername());
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
         } catch (ServiceException ex) {

@@ -26,5 +26,7 @@ public interface TaskService {
     void addTaskToSchedules(int taskId, String... scheduleIds) throws SQLException, ServiceException;
 
     List<Schedule> getTaskSchedules(int taskId) throws SQLException, ServiceException;
+
+    void addToCoordinated(int tasksId, int schedulesId, int day, int startDate, int endDate) throws SQLException, ServiceException;
 }
 

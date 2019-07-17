@@ -72,7 +72,7 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
         if (title == null || "".equals(title) || description == null || "".equals(description)) {
             throw new IllegalArgumentException("Something is missing");
         }
-        if(!taskAlreadyExists(title)){
+        if(true){
             boolean autoCommit = connection.getAutoCommit();
             connection.setAutoCommit(false);
             String sql = "INSERT INTO tasks (title, accounts_id, description) VALUES (?, ?, ?)";
@@ -153,6 +153,27 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
                 statement.setInt(2, scheduleId);
                 executeInsert(statement);
             }
+            connection.commit();
+        }catch (SQLException ex){
+            connection.rollback();
+            throw ex;
+        }finally {
+            connection.setAutoCommit(autoCommit);
+        }
+    }
+
+    @Override
+    public void addToCoordinated(int tasksId, int schedulesId, int day, int startDate, int endDate) throws SQLException{
+        boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
+        String sql = "INSERT INTO coordinated (tasks_id, schedules_id, day, start_date, end_date) VALUES (?, ?, ?, ?, ?)";
+        try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);){
+            statement.setInt(1, tasksId);
+            statement.setInt(2, schedulesId);
+            statement.setInt(3,day);
+            statement.setInt(4, startDate);
+            statement.setInt(5, endDate);
+            executeInsert(statement);
             connection.commit();
         }catch (SQLException ex){
             connection.rollback();

@@ -77,7 +77,7 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
         if(days <= 0 || days > 7){
             throw new IllegalArgumentException("Days cannot be less than 1, or more than 7");
         }
-        if(!scheduleAlreadyExists(title)){
+        if(true){
             boolean autoCommit = connection.getAutoCommit();
             connection.setAutoCommit(false);
             String sql = "INSERT INTO schedules (title, days, accounts_id) VALUES (?, ?, ?)";
