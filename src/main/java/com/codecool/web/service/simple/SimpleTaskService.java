@@ -102,6 +102,17 @@ public final class SimpleTaskService implements TaskService {
         }
     }
 
+    @Override
+    public void addToCoordinated(int tasksId, int schedulesId, int day, int startDate, int endDate) throws SQLException, ServiceException{
+        try{
+            taskDao.addToCoordinated(tasksId, schedulesId, day, startDate, endDate);
+        }catch (NumberFormatException ex){
+            throw new ServiceException("Must use integers!");
+        }catch (IllegalArgumentException ex){
+            throw new ServiceException(ex.getMessage());
+        }
+    }
+
     private int[] parseScheduleIds(String[] scheduleIds) throws ServiceException{
         try{
             int[] ids = new int[scheduleIds.length];

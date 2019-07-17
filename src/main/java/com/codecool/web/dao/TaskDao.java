@@ -22,4 +22,8 @@ public interface TaskDao {
     void delete(String title) throws SQLException;
 
     void add(int taskId, int... scheduleIds) throws SQLException;
+
+    void addToCoordinated(int tasksId, int schedulesId, int day, int startDate, int endDate) throws SQLException;
 }
+
+
