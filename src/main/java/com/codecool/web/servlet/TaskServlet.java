@@ -32,25 +32,34 @@ public final class TaskServlet extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try(Connection connection = getConnection(req.getServletContext())) {
+        try (Connection connection = getConnection(req.getServletContext())) {
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             TaskDao taskDao = new DatabaseTaskDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
             TaskService taskService = new SimpleTaskService(taskDao, scheduleDao);
             Account account = (Account) req.getSession().getAttribute("account");
             LogService logService = new SimpleLogService();
+            int accounts_id = account.getId();
 
             String title = req.getParameter("title");
 
+            Schedule schedule = scheduleService.getSchedule(title);
+
+            List<Task> tasks = taskService.getTasksById(accounts_id);
+
+
             Task task = taskService.getTask(title);
             List<Schedule> schedules = scheduleService.getSchedules();
-            List<Schedule> taskSchedules = taskService.getTaskSchedules(task.getId());
+//            List<Schedule> taskSchedules = taskService.getTaskSchedules(task.getId());
 
-            sendMessage(resp, HttpServletResponse.SC_OK, new TaskDto(task, schedules, taskSchedules));
-        }catch (ServiceException ex){
-            sendMessage(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
-        }catch (SQLException ex){
+//            sendMessage(resp, HttpServletResponse.SC_OK ,new TaskDto(task, schedules, taskSchedules));
+            sendMessage(resp, HttpServletResponse.SC_OK, schedule);
+            logService.log("Schedule opened: " + schedule.getTitle() + " by user: " + account.getUsername());
+        } catch (SQLException ex) {
             handleSqlError(resp, ex);
+        } catch (ServiceException ex) {
+            sendMessage(resp, HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+
         }
     }
 

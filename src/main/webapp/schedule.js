@@ -2,7 +2,8 @@ function onScheduleResponse() {
     if (this.status === OK) {
         const schedule = JSON.parse(this.responseText);
         createScheduleTableDisplay(schedule);
-        showContents(['schedule-content', 'back-to-profile-content', 'logout-content',]);
+        onTasksLoad(tasks);
+        showContents(['schedule-content','tasks-content','back-to-profile-content', 'logout-content',]);
 
     } else {
         onOtherResponse(scheduleContentDivEl, this);
@@ -62,7 +63,7 @@ function createScheduleTableBody(schedule) {
     
     trEl.appendChild(eventNameThEl);
     
-    for(let i = 1; i < schedule.days + 1; i++){
+    for(let i = 1; i <= schedule.days; i++){
         const tableNameThEl = document.createElement('th');
         tableNameThEl.classList.add('default-th');
         tableNameThEl.textContent = 'Days ' + i;
