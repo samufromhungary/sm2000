@@ -9,6 +9,8 @@ function onScheduleResponse() {
         onOtherResponse(scheduleContentDivEl, this);
     }
   }
+
+  // ownerID kiiratása task ID helyett a nagy táblázatban
   
   function createScheduleTableDisplay(schedule) {
     if (schedule.length === 0) {

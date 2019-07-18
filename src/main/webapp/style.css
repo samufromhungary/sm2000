@@ -5,6 +5,14 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
+    font-size: 18px;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    color: white;
+}
+
+
+a {
+    color: white;
 }
 
 .login {
@@ -35,9 +43,36 @@ h1 {
     display: none;
 }
 
-li {
+/* LIST #1 */
+#profile-content {
+}
+
+#profile-content ul {;
+    list-style: none;
     text-align: center;
-    list-style-position: inside;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    max-width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 26px;
+}
+
+#profile-content ul li {
+    display: inline;
+    text-transform: uppercase;
+    padding: 0 10px;
+    letter-spacing: 10px;
+}
+
+#profile-content ul li a {
+    text-decoration: none;
+    color: #eee;
+}
+
+#profile-content ul li a:hover {
+    text-decoration: underline;
 }
 
 

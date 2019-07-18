@@ -17,6 +17,8 @@
         <c:url value="/logout.js" var="logoutScriptUrl"/>
         <link rel="stylesheet" type="text/css" href="${styleUrl}">
         <link rel="stylesheet" href="tablecss.css">
+        <link rel="stylesheet" href="login-register.css">
+        <link rel="stylesheet" href="style.css">
         <script src="${indexScriptUrl}"></script>
         <script src="${loginScriptUrl}"></script>
         <script src="${registerScriptUrl}"></script>
@@ -30,38 +32,41 @@
     </head>
 <body>
 <div id="login-content" class="content" style="text-align: center">
-    <h1>Login</h1>
+    <h1>Welcome to Schedule Master 2000!</h1>
     <form id="login-form" onsubmit="return false;" class="login">
-        <input type="text" name="email" placeholder="email">
-        <br>
-        <input type="password" name="password" placeholder="password">
-        <br>
-        <br>
+        <input type="text" name="email" placeholder=" email">
+        <br><br>
+        <input type="password" name="password" placeholder=" password">
+        <br><br>
         <button id="login-button">Login</button>
     </form>
     <br>
-    <button id="toggle-trigger" onclick="togglediv('register-content')">Create an account</button>
+    <button id="toggle-trigger" onclick="togglediv('register-content')">Sign up</button>
 </div>
+<br>
 <div id="register-content" class="hidden content">
-    <h1>Register</h1>
     <form id="register-form" onsubmit="return false;" class="register">
-        <input type="text" name="username" placeholder="username">
-        <br>
-        <input type="text" name="email" placeholder="email">
-        <br>
-        <input type="password" name="password" placeholder="password">
-        <br>
-        <button id="register-button" onclick="togglediv('register-content')">Register</button>
+        <input type="text" name="username" placeholder=" username">
+        <br><br>
+        <input type="text" name="email" placeholder=" email">
+        <br><br>
+        <input type="password" name="password" placeholder=" password">
+        <br><br>
+        <button id="register-button" onclick="togglediv('register-content')">Create account</button>
     </form>
 </div>
+<br><br>
 <div id="profile-content" class="hidden content">
     <h1>Profile</h1>
-    <p>Current user: <span id="user-email"></span></p>
+<%--
+    <h2>You are logged in as: <span id="user-email"></span></h2>
+--%>
     <ul>
-        <li><a href="javascript:void(0);" onclick="onSchedulesClicked();">Schedules</a></li>
-        <li><a href="javascript:void(0);" onclick="onTasksClicked();">Tasks</a></li>
+        <li class="sch"><a href="javascript:void(0);" onclick="onSchedulesClicked();">Schedules</a></li>
+        <li class="tas"><a href="javascript:void(0);" onclick="onTasksClicked();">Tasks</a></li>
     </ul>
 </div>
+<br><br>
 <div id="schedules-content" class="hidden content">
     <h1>Schedules</h1>
     <table id="schedules">
