@@ -11,7 +11,7 @@ function onScheduleClicked() {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleResponse);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('GET', 'protected/task?' + params.toString());
+    xhr.open('GET', 'protected/schedule?' + params.toString());
     xhr.send();
 }
 
@@ -80,29 +80,20 @@ function appendSchedules(schedules) {
         appendSchedule(schedule);
     }
 }
-function onScheduleAddResponse() {
-   clearMessages();
-    if (this.status === OK) {
-        appendSchedule(JSON.parse(this.responseText));
-        onSchedulesClicked();
-    } else {
-        onOtherResponse(schedulesContentDivEl, this);
-    }
-}
 
 function onScheduleAddClicked() {
     const scheduleFormEl = document.forms['schedule-form'];
-
+    
     const titleInputEl = scheduleFormEl.querySelector('input[name="title"]');
     const daysInputEl = scheduleFormEl.querySelector('input[name="days"]');
-
+    
     const title = titleInputEl.value;
     const days = daysInputEl.value;
-
+    
     const params = new URLSearchParams();
     params.append('title', title);
     params.append('days', days);
-
+    
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleAddResponse);
     xhr.addEventListener('error', onNetworkError);
@@ -127,6 +118,38 @@ function onScheduleDeleteClicked() {
     xhr.send(params);
 }
 
+function onScheduleModifyClicked(){
+    const scheduleFormEl = document.forms['modify-schedule-form']
+    
+    const modifyTitleInputEl = scheduleFormEl.querySelector('input[name="title"]');
+    const newTitleInputEl = scheduleFormEl.querySelector('input[name="newTitle"]');
+    const modifyDaysInputEl = scheduleFormEl.querySelector('input[name="days"]');
+    
+    const modifyTitle = modifyTitleInputEl.value;
+    const newTitle = newTitleInputEl.value;
+    const modifyDays = modifyDaysInputEl.value;
+    
+    const params = new URLSearchParams();
+    params.append('title',modifyTitle);
+    params.append('newTitle',newTitle);
+    params.append('days',modifyDays);
+    
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onSchedulesClicked);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('POST', 'protected/modifySchedule');
+    xhr.send(params);
+}
+
+function onScheduleAddResponse() {
+   clearMessages();
+    if (this.status === OK) {
+        appendSchedule(JSON.parse(this.responseText));
+        onSchedulesClicked();
+    } else {
+        onOtherResponse(schedulesContentDivEl, this);
+    }
+}
 function onScheduleDeleteResponse() {
     clearMessages();
     if (this.status === OK) {
@@ -135,29 +158,6 @@ function onScheduleDeleteResponse() {
         onOtherResponse(schedulesContentDivEl, this);
     }
 }
-function onScheduleModifyClicked(){
-    const scheduleFormEl = document.forms['modify-schedule-form']
-    
-    const modifyTitleInputEl = scheduleFormEl.querySelector('input[name="title"]');
-    const newTitleInputEl = scheduleFormEl.querySelector('input[name="newTitle"]');
-    const modifyDaysInputEl = scheduleFormEl.querySelector('input[name="days"]');
-
-    const modifyTitle = modifyTitleInputEl.value;
-    const newTitle = newTitleInputEl.value;
-    const modifyDays = modifyDaysInputEl.value;
-
-    const params = new URLSearchParams();
-    params.append('title',modifyTitle);
-    params.append('newTitle',newTitle);
-    params.append('days',modifyDays);
-
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onSchedulesClicked);
-    xhr.addEventListener('error', onNetworkError);
-    xhr.open('POST', 'protected/modifySchedule');
-    xhr.send(params);
-}
-
 function onSchedulesResponse() {
     if (this.status === OK) {
         showContents(['schedules-content', 'back-to-profile-content', 'logout-content', 'schedule']);

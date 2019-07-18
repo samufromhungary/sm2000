@@ -2,18 +2,18 @@ let tasksTableEl;
 let tasksTableBodyEl;
 let taskTitle;
 
-function onTaskClicked() {
-    const taskId = this.dataset.taskId;
+// function onTaskClicked() {
+//     const taskId = this.dataset.taskId;
 
-    const params = new URLSearchParams();
-    params.append('id', taskId);
+//     const params = new URLSearchParams();
+//     params.append('id', taskId);
 
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onTaskResponse);
-    xhr.addEventListener('error', onNetworkError);
-    xhr.open('GET', 'protected/task?' + params.toString());
-    xhr.send();
-}
+//     const xhr = new XMLHttpRequest();
+//     xhr.addEventListener('load', onTaskResponse);
+//     xhr.addEventListener('error', onNetworkError);
+//     xhr.open('GET', 'protected/task?' + params.toString());
+//     xhr.send();
+// }
 
 function onTaskAddResponse() {
    clearMessages();

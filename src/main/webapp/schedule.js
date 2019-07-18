@@ -1,9 +1,15 @@
+let scheduleTasksTableEl;
+let scheduleTasksTableBodyEl;
+
 function onScheduleResponse() {
     if (this.status === OK) {
-        const schedule = JSON.parse(this.responseText);
-        createScheduleTableDisplay(schedule);
-        onTasksLoad(tasks);
-        showContents(['schedule-content','tasks-content','back-to-profile-content', 'logout-content',]);
+        showContents(['schedule-content', 'back-to-profile-content', 'logout-content',]);
+        const data = JSON.parse(this.responseText);
+        const schedule = data[0];
+        const tasks = data[1];
+        // onScheduleTaskLoad(tasks);
+        // createScheduleTableDisplay(schedule);
+        onTasksTableLoad(schedule,tasks);
 
     } else {
         onOtherResponse(scheduleContentDivEl, this);
@@ -11,10 +17,33 @@ function onScheduleResponse() {
   }
 
   // ownerID kiiratása task ID helyett a nagy táblázatban
-  
+
+  function onTaskAssignClicked(){
+    const scheduleFormEl = document.forms['schedule-task-form']
+
+    const dayInputEl = scheduleFormEl.querySelector('input[name="day"]');
+    const startDateInputEl = scheduleFormEl.querySelector('input[name="hour-start"]');
+    const endDateInputEl = scheduleFormEl.querySelector('input[name="hour-end"]');
+
+    const day = dayInputEl.value;
+    const startDate = startDateInputEl.value;
+    const endDate = endDateInputEl.value;
+
+    const params = new URLSearchParams();
+    params.append('days',day);
+    params.append('startDate',startDate);
+    params.append('endDate',endDate);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onTaskAssignResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('POST', 'protected/schedule');
+    xhr.send(params);
+  }
+
   function createScheduleTableDisplay(schedule) {
     if (schedule.length === 0) {
-        removeAllChildren(myActivitiesDivEl);
+        removeAllChildren(scheduleContentDivEl);
         const pEl = document.createElement('p');
         pEl.setAttribute('id', 'schedule-info');
         pEl.textContent = 'The activity log is empty';
@@ -77,13 +106,44 @@ function createScheduleTableBody(schedule) {
     theadEl.appendChild(trEl);
     return theadEl;
 }
-  
-  
-function onScheduleLoad() {
-    const tableEl = document.createElement('table');
-    tableEl.setAttribute('id', 'schedule-table');
-    tableEl.appendChild(theadEl);
-    tableEl.appendChild(tbodyEl);
-    removeAllChildren(scheduleContentDivEl);
-    scheduleContentDivEl.appendChild(tableEl);
+
+function onTaskAssignResponse() {
+    clearMessages();
+    if (this.status === OK) {
+        onScheduleResponse();
+    } else {
+        onOtherResponse(scheduleContentDivEl, this);
+    }
 }
+ function appendTasks(tasks) {
+     removeAllChildren(scheduleTasksTableBodyEl);
+
+     for (let i = 0; i < tasks.length; i++) {
+         const task = tasks[i];
+         appendTask(task);
+     }
+ }
+  
+ function onScheduleTaskLoad(tasks) {
+     scheduleTasksTableEl = document.getElementById('tasks');
+     scheduleTasksTableBodyEl = scheduleTasksTableEl.querySelector('tbody');
+
+     const selectEl = document.querySelector('#schedule-task-form > select');
+
+     removeAllChildren(selectEl);
+
+     for (let i= 0; i < tasks.length; i++) {
+         const task = tasks[i];
+
+         const optionEl = document.createElement('option');
+         optionEl.value = task.title;
+         optionEl.textContent = `${task.id} - ${task.title} - ${task.description}`;
+
+         selectEl.appendChild(optionEl);
+     }
+     appendTasks(tasks);
+ }
+ function onTasksTableLoad(schedule,tasks){
+     onScheduleTaskLoad(tasks);
+     createScheduleTableDisplay(schedule);
+ }

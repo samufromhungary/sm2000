@@ -102,6 +102,15 @@
     </form>
 </div>
 <div id="schedule-content" class="hidden content">
+    <h2>Task assigning</h2>
+    <form id="schedule-task-form">
+        <select name="tasks" multiple>
+        </select>
+        <input type="text" name="day" placeholder="Day">
+        <input type="text" name="hour-start" placeholder="Start Hour">
+        <input type="text" name="hour-end" placeholder="End Hour">
+        <button onclick="onTaskAssignClicked();">Assign</button>
+    </form>
 </div>
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>

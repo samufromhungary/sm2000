@@ -170,7 +170,7 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
         try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);){
             statement.setInt(1, tasksId);
             statement.setInt(2, schedulesId);
-            statement.setInt(3,day);
+            statement.setInt(3, day);
             statement.setInt(4, startDate);
             statement.setInt(5, endDate);
             executeInsert(statement);

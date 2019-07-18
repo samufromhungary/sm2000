@@ -22,7 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/protected/schedule")
 public final class ScheduleServlet extends AbstractServlet {
@@ -43,6 +45,12 @@ public final class ScheduleServlet extends AbstractServlet {
 
             Schedule schedule = scheduleService.getSchedule(title);
 
+            Object [] tempStorage = new Object[2];
+            tempStorage[0] = schedule;
+            tempStorage[1] = tasks;
+
+            sendMessage(resp, HttpServletResponse.SC_OK, tempStorage);
+//            sendMessage(resp, HttpServletResponse.SC_OK, schedule);
             if (account.getPermission().equalsIgnoreCase("admin")){
                 List<Task> tasks = taskService.getTasks();
                 sendMessage(resp, HttpServletResponse.SC_OK, schedule);
