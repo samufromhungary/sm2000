@@ -20,7 +20,7 @@ create table if not exists tasks(
 create table if not exists coordinated(
     tasks_id int REFERENCES tasks(id),
     schedules_id int REFERENCES schedules(id),
-	day numeric(1), --trigger ellen.
+	day numeric(1),
 	start_date numeric(2),
 	end_date numeric(2)
 );
@@ -73,32 +73,25 @@ RETURNS TRIGGER AS
     END;
 'LANGUAGE plpgsql;
 
---CREATE OR REPLACE FUNCTION check_schedule_days()
---    RETURNS TRIGGER AS
---    'BEGIN
---        DECLARE
---            c integer;
---        BEGIN
---            SELECT NEW.days INTO c FROM schedules
---            IF(days >= 8) THEN
---                RAISE EXCEPTION ''Day counter is a value between 1 and 7'';
---            ELSE
---                RETURN NEW
---            END IF;
---        END;
---    END;
---' LANGUAGE plpgsql;
---
---CREATE OR REPLACE FUNCTION check_days()
---RETURN TRIGGER AS
---    'BEGIN
---        IF
---
+CREATE OR REPLACE FUNCTION check_day_value()
+RETURNS TRIGGER AS
+    'BEGIN
+        SELECT schedules.days as days FROM schedules
+        WHERE schedules.id = NEW.schedules_id;
+
+        IF ( NEW.day > days) THEN
+            RAISE EXCEPTION ''Select a valid day'';
+        ELSE
+            RETURN NEW;
+        END IF;
+    END;
+'LANGUAGE plpgsql;
+
 DROP TRIGGER IF EXISTS check_account_uniqueness ON accounts;
 DROP TRIGGER IF EXISTS check_schedule_uniqueness ON schedules;
 DROP TRIGGER IF EXISTS check_task_uniqueness ON tasks;
 DROP TRIGGER IF EXISTS check_coordinated ON coordinated;
---DROP TRIGGER IF EXISTS check_schedule_days ON schedules;
+DROP TRIGGER IF EXISTS check_day_value ON coordinated;
 
 CREATE TRIGGER check_account_uniqueness
     BEFORE INSERT ON accounts
@@ -120,15 +113,10 @@ CREATE TRIGGER check_coordinated
     FOR EACH ROW
     EXECUTE PROCEDURE check_coordinated();
 
---CREATE TRIGGER check_schedule_days
---    BEFORE INSERT ON schedules
---    FOR EACH ROW
---    EXECUTE PROCEDURE check_schedule_days();
---
---CREATE TRIGGER check_days
---    BEFORE INSERT ON schedules
---    FOR EACH ROW
---    EXECUTE PROCEDURE check_days();
+CREATE TRIGGER check_day_value
+    BEFORE INSERT ON coordinated
+    FOR EACH ROW
+    EXECUTE PROCEDURE check_day_value();
 
 INSERT INTO accounts (username ,email,password, permission) VALUES
-    ('admin','admin@admin','admin','Admin') ON CONFLICT DO NOTHING;
+    ('admin','admin@admin','admin','admin') ON CONFLICT DO NOTHING;

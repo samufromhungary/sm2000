@@ -31,10 +31,14 @@ public final class SchedulesServlet extends AbstractServlet {
             LogService logService = new SimpleLogService();
             int accounts_id = account.getId();
 
-            List<Schedule> schedules = scheduleService.getSchedulesById(accounts_id);
-
+            if(account.getPermission().equalsIgnoreCase("admin")){
+                List<Schedule> schedules = scheduleService.getSchedules();
+                sendMessage(resp, HttpServletResponse.SC_OK, schedules);
+            }else{
+                List<Schedule> schedules = scheduleService.getSchedulesById(accounts_id);
+                sendMessage(resp, HttpServletResponse.SC_OK, schedules);
+            }
             logService.log(account.getUsername() + " opened his/her schedules");
-            sendMessage(resp, HttpServletResponse.SC_OK, schedules);
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
         }

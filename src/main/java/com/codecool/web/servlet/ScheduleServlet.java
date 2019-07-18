@@ -42,10 +42,17 @@ public final class ScheduleServlet extends AbstractServlet {
             String title = req.getParameter("title");
 
             Schedule schedule = scheduleService.getSchedule(title);
-            List<Task> tasks = taskService.getTasksById(accounts_id);
 
-            sendMessage(resp, HttpServletResponse.SC_OK, schedule);
-            sendMessage(resp, HttpServletResponse.SC_OK, tasks);
+            if (account.getPermission().equalsIgnoreCase("admin")){
+                List<Task> tasks = taskService.getTasks();
+                sendMessage(resp, HttpServletResponse.SC_OK, schedule);
+                sendMessage(resp, HttpServletResponse.SC_OK, tasks);
+            }else{
+                List<Task> tasks = taskService.getTasksById(accounts_id);
+                sendMessage(resp, HttpServletResponse.SC_OK, schedule);
+                sendMessage(resp, HttpServletResponse.SC_OK, tasks);
+            }
+
             logService.log("Schedule opened: " + schedule.getTitle() + " by user: " + account.getUsername());
         } catch (SQLException ex) {
             handleSqlError(resp, ex);

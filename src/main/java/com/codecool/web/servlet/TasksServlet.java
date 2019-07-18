@@ -35,9 +35,14 @@ public final class TasksServlet extends AbstractServlet {
             LogService logService = new SimpleLogService();
             int accounts_id = account.getId();
 
-            List<Task> tasks = taskService.getTasksById(accounts_id);
+            if(account.getPermission().equalsIgnoreCase("admin")){
+                List<Task> tasks = taskService.getTasks();
+                sendMessage(resp, HttpServletResponse.SC_OK, tasks);
+            }else{
+                List<Task> tasks = taskService.getTasksById(accounts_id);
+                sendMessage(resp, HttpServletResponse.SC_OK, tasks);
+            }
 
-            sendMessage(resp, HttpServletResponse.SC_OK, tasks);
             logService.log(account.getUsername() + " opened his/her tasks");
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
