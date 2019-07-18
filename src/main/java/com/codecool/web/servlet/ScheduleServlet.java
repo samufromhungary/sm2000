@@ -6,6 +6,7 @@ import com.codecool.web.dao.database.DatabaseScheduleDao;
 import com.codecool.web.dao.database.DatabaseTaskDao;
 import com.codecool.web.model.Account;
 import com.codecool.web.model.Schedule;
+import com.codecool.web.model.Task;
 import com.codecool.web.service.LogService;
 import com.codecool.web.service.ScheduleService;
 import com.codecool.web.service.TaskService;
@@ -30,15 +31,21 @@ public final class ScheduleServlet extends AbstractServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = getConnection(req.getServletContext())) {
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
+            TaskDao taskDao = new DatabaseTaskDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
+            TaskService taskService = new SimpleTaskService(taskDao, scheduleDao);
             Account account = (Account) req.getSession().getAttribute("account");
             LogService logService = new SimpleLogService();
+
+            int accounts_id = account.getId();
 
             String title = req.getParameter("title");
 
             Schedule schedule = scheduleService.getSchedule(title);
+            List<Task> tasks = taskService.getTasksById(accounts_id);
 
             sendMessage(resp, HttpServletResponse.SC_OK, schedule);
+            sendMessage(resp, HttpServletResponse.SC_OK, tasks);
             logService.log("Schedule opened: " + schedule.getTitle() + " by user: " + account.getUsername());
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
