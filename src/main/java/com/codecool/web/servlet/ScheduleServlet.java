@@ -46,9 +46,8 @@ public final class ScheduleServlet extends AbstractServlet {
             if (account.getPermission().equalsIgnoreCase("admin")){
                 List<Task> tasks = taskService.getTasks();
                 sendMessage(resp, HttpServletResponse.SC_OK, schedule);
-                sendMessage(resp, HttpServletResponse.SC_OK, tasks);
             }else{
-                List<Task> tasks = taskService.getTasksById(accounts_id);
+                List<Task> tasks = taskService.getTasks();
                 sendMessage(resp, HttpServletResponse.SC_OK, schedule);
                 sendMessage(resp, HttpServletResponse.SC_OK, tasks);
             }
