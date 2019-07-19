@@ -167,6 +167,24 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
         return schedules;
     }
 
+
+    @Override
+    public Schedule findScheduleId(int id) throws SQLException {
+        if(id == 0 || "".equals(id) ) {
+            throw new IllegalArgumentException("ID cannot be null or empty");
+        }
+        String sql = "SELECT id, title, days, accounts_id FROM schedules WHERE id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, id);
+            try(ResultSet resultSet = statement.executeQuery()){
+                if (resultSet.next()){
+                    return fetchSchedule(resultSet);
+                }
+            }
+        }
+        return null;
+    }
+
     private Schedule fetchSchedule(ResultSet resultSet)throws SQLException{
         int id = resultSet.getInt("id");
         String title = resultSet.getString("title");

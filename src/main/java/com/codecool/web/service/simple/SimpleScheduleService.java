@@ -26,6 +26,19 @@ public final class SimpleScheduleService implements ScheduleService {
     }
 
     @Override
+    public Schedule getScheduleId(int id) throws SQLException,ServiceException{
+        try{
+            Schedule schedule = scheduleDao.findScheduleId(id);
+            if (schedule == null) {
+                throw new ServiceException("Unknown schedule");
+            }
+            return schedule;
+        }catch (IllegalArgumentException ex){
+            throw new ServiceException(ex.getMessage());
+        }
+    }
+
+    @Override
     public Schedule getSchedule(String title) throws SQLException, ServiceException {
         try{
             Schedule schedule = scheduleDao.findByTitle(title);

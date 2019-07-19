@@ -103,12 +103,12 @@
 </div>
 <div id="schedule-content" class="hidden content">
     <h2>Task assigning</h2>
-    <form id="schedule-task-form">
+    <form id="schedule-task-form" onsubmit="return false;">
         <select name="tasks" multiple>
         </select>
-        <input type="text" name="day" placeholder="Day">
-        <input type="text" name="hour-start" placeholder="Start Hour">
-        <input type="text" name="hour-end" placeholder="End Hour">
+        <input type="text" name="days" placeholder="Day">
+        <input type="text" name="startDate" placeholder="Start Hour">
+        <input type="text" name="endDate" placeholder="End Hour">
         <button onclick="onTaskAssignClicked();">Assign</button>
     </form>
 </div>

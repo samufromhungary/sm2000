@@ -41,24 +41,20 @@ public final class ScheduleServlet extends AbstractServlet {
 
             int accounts_id = account.getId();
 
-            String title = req.getParameter("title");
+            int id = Integer.valueOf(req.getParameter("id"));
 
-            Schedule schedule = scheduleService.getSchedule(title);
+            Schedule schedule = scheduleService.getScheduleId(id);
+            req.getSession().setAttribute("schedule",schedule);
+
+            List<Task> tasks = taskService.getTasksById(accounts_id);
+
 
             Object [] tempStorage = new Object[2];
             tempStorage[0] = schedule;
             tempStorage[1] = tasks;
 
             sendMessage(resp, HttpServletResponse.SC_OK, tempStorage);
-//            sendMessage(resp, HttpServletResponse.SC_OK, schedule);
-            if (account.getPermission().equalsIgnoreCase("admin")){
-                List<Task> tasks = taskService.getTasks();
-                sendMessage(resp, HttpServletResponse.SC_OK, schedule);
-            }else{
-                List<Task> tasks = taskService.getTasks();
-                sendMessage(resp, HttpServletResponse.SC_OK, schedule);
-                sendMessage(resp, HttpServletResponse.SC_OK, tasks);
-            }
+
 
             logService.log("Schedule opened: " + schedule.getTitle() + " by user: " + account.getUsername());
         } catch (SQLException ex) {
@@ -71,6 +67,8 @@ public final class ScheduleServlet extends AbstractServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account = (Account) req.getSession().getAttribute("account");
+        Schedule schedule = (Schedule) req.getSession().getAttribute("schedule");
+
         LogService logService = new SimpleLogService();
         try (Connection connection = getConnection(req.getServletContext())) {
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
@@ -79,8 +77,9 @@ public final class ScheduleServlet extends AbstractServlet {
             TaskService taskService = new SimpleTaskService(taskDao, scheduleDao);
             int accounts_id = account.getId();
 
+
             int tasksId = Integer.valueOf(req.getParameter("tasksId"));
-            Schedule schedule = (Schedule) req.getSession().getAttribute("schedule");
+
             int schedulesId = schedule.getId();
             int days = Integer.valueOf(req.getParameter("days"));
             int startDate = Integer.valueOf(req.getParameter("startDate"));

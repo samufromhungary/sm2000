@@ -1,12 +1,13 @@
 let schedulesTableEl;
 let schedulesTableBodyEl;
 let scheduleTitle;
+let scheduleId;
 
 function onScheduleClicked() {
-    const scheduleTitle = this.dataset.scheduleTitle;
+    const scheduleId = this.dataset.scheduleId;
     
     const params = new URLSearchParams();
-    params.append('title', scheduleTitle);
+    params.append('id', scheduleId);
     
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleResponse);
@@ -55,9 +56,9 @@ function appendSchedule(schedule) {
     idTdEl.textContent = schedule.id;
 
     const aEl = document.createElement('a');
-    aEl.textContent = schedule.title;
+    aEl.textContent = schedule.id;
     aEl.href = 'javascript:void(0);';
-    aEl.dataset.scheduleTitle = schedule.title;
+    aEl.dataset.scheduleId = schedule.id;
     aEl.addEventListener('click', onScheduleClicked);
 
     const titleTdEl = document.createElement('td');

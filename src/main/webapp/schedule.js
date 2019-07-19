@@ -16,63 +16,21 @@ function onScheduleResponse() {
     }
   }
 
-  // ownerID kiiratása task ID helyett a nagy táblázatban
-
-  function onTaskAssignClicked(){
-    const scheduleFormEl = document.forms['schedule-task-form']
-
-    const dayInputEl = scheduleFormEl.querySelector('input[name="day"]');
-    const startDateInputEl = scheduleFormEl.querySelector('input[name="hour-start"]');
-    const endDateInputEl = scheduleFormEl.querySelector('input[name="hour-end"]');
-
-    const day = dayInputEl.value;
-    const startDate = startDateInputEl.value;
-    const endDate = endDateInputEl.value;
-
-    const params = new URLSearchParams();
-    params.append('days',day);
-    params.append('startDate',startDate);
-    params.append('endDate',endDate);
-
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onTaskAssignResponse);
-    xhr.addEventListener('error', onNetworkError);
-    xhr.open('POST', 'protected/schedule');
-    xhr.send(params);
-  }
-
-  function createScheduleTableDisplay(schedule) {
-    if (schedule.length === 0) {
-        removeAllChildren(scheduleContentDivEl);
-        const pEl = document.createElement('p');
-        pEl.setAttribute('id', 'schedule-info');
-        pEl.textContent = 'The activity log is empty';
-        scheduleContentDivEl.appendChild(pEl);
-    } else {
-        removeAllChildren(scheduleContentDivEl);
-        const tableEl = document.createElement('table');
-        const theadEl = createScheduleTableHeader(schedule);
-        const tbodyEl = createScheduleTableBody(schedule);
-        tableEl.appendChild(theadEl);
-        tableEl.appendChild(tbodyEl);
-        scheduleContentDivEl.appendChild(tableEl);
-    }
-  }
   
-function createScheduleTableBody(schedule) {
-    const tbodyEl = document.createElement('tbody');
+  function createScheduleTableBody(schedule) {
+      const tbodyEl = document.createElement('tbody');
   
-    for(let i = 0; i < 25; i++){
+      for(let i = 0; i < 25; i++){
 
-        const eventNameTdEl = document.createElement('td');
-        eventNameTdEl.classList.add('default-cell');
+          const eventNameTdEl = document.createElement('td');
+          eventNameTdEl.classList.add('default-cell');
         eventNameTdEl.textContent = i;
         
         const trEl = document.createElement('tr');
         trEl.appendChild(eventNameTdEl);
-
-        for(let m = 0; m < schedule.days; m++){
         
+        for(let m = 0; m < schedule.days; m++){
+            
             const tableNameTdEl = document.createElement('td');
             tableNameTdEl.classList.add('default-cell');
             tableNameTdEl.textContent = ' ';
@@ -81,15 +39,15 @@ function createScheduleTableBody(schedule) {
         
         tbodyEl.appendChild(trEl);
     }
-        
+    
     return tbodyEl;
-  }
-  
-  function createScheduleTableHeader(schedule) {
-    const trEl = document.createElement('tr');
+}
 
-    const eventNameThEl = document.createElement('th');
-    eventNameThEl.classList.add('default-th');``
+  function createScheduleTableHeader(schedule) {
+      const trEl = document.createElement('tr');
+
+      const eventNameThEl = document.createElement('th');
+      eventNameThEl.classList.add('default-th');``
     eventNameThEl.textContent = 'Hours';
     
     trEl.appendChild(eventNameThEl);
@@ -106,22 +64,72 @@ function createScheduleTableBody(schedule) {
     theadEl.appendChild(trEl);
     return theadEl;
 }
+function createScheduleTableDisplay(schedule) {
+  if (schedule.length === 0) {
+      removeAllChildren(scheduleContentDivEl);
+      const pEl = document.createElement('p');
+      pEl.setAttribute('id', 'schedule-info');
+      pEl.textContent = 'The activity log is empty';
+      scheduleContentDivEl.appendChild(pEl);
+  } else {
+      removeAllChildren(scheduleContentDivEl);
+      const tableEl = document.createElement('table');
+      const theadEl = createScheduleTableHeader(schedule);
+      const tbodyEl = createScheduleTableBody(schedule);
+      tableEl.appendChild(theadEl);
+      tableEl.appendChild(tbodyEl);
+      scheduleContentDivEl.appendChild(tableEl);
+  }
+}
+// ownerID kiiratása task ID helyett a nagy táblázatban
+
+function onTaskAssignClicked(){
+  const scheduleTaskFormEl = document.forms['schedule-task-form']
+     
+  const taskTitlesSelectEl = scheduleTaskFormEl.querySelector('select[name="tasks"]');
+  
+  
+  const daysInputEl = scheduleTaskFormEl.querySelector('input[name="days"]');
+  const startDateInputEl = scheduleTaskFormEl.querySelector('input[name="startDate"]');
+  const endDateInputEl = scheduleTaskFormEl.querySelector('input[name="endDate"]');
+  
+  const days = daysInputEl.value;
+  const startDate = startDateInputEl.value;
+  const endDate = endDateInputEl.value;
+  
+  const params = new URLSearchParams();
+  
+  for (let i = 0; i < taskTitlesSelectEl.selectedOptions.length; i++) {
+      const tasksId = taskTitlesSelectEl.selectedOptions[i].value;
+      params.append('tasksId', tasksId);
+  }
+  params.append('days',days);
+  params.append('startDate',startDate);
+  params.append('endDate',endDate);
+
+  const xhr = new XMLHttpRequest();
+  xhr.addEventListener('load', onTaskAssignResponse);
+  xhr.addEventListener('error', onNetworkError);
+  xhr.open('POST', 'protected/schedule');
+  xhr.send(params);
+}
+
 
 function onTaskAssignResponse() {
     clearMessages();
     if (this.status === OK) {
-        onScheduleResponse();
+        onSchedulesClicked();
     } else {
         onOtherResponse(scheduleContentDivEl, this);
     }
 }
- function appendTasks(tasks) {
-     removeAllChildren(scheduleTasksTableBodyEl);
+function appendTasks(tasks) {
+    removeAllChildren(scheduleTasksTableBodyEl);
 
-     for (let i = 0; i < tasks.length; i++) {
-         const task = tasks[i];
-         appendTask(task);
-     }
+    for (let i = 0; i < tasks.length; i++) {
+        const task = tasks[i];
+        appendTask(task);
+    }
  }
   
  function onScheduleTaskLoad(tasks) {
@@ -136,7 +144,7 @@ function onTaskAssignResponse() {
          const task = tasks[i];
 
          const optionEl = document.createElement('option');
-         optionEl.value = task.title;
+         optionEl.value = task.id;
          optionEl.textContent = `${task.id} - ${task.title} - ${task.description}`;
 
          selectEl.appendChild(optionEl);
