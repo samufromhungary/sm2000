@@ -3,37 +3,35 @@ let scheduleTasksTableBodyEl;
 
 function onScheduleResponse() {
     if (this.status === OK) {
-        showContents(['schedule-content', 'back-to-profile-content', 'logout-content',]);
+        showContents(['schedule-content','back-to-profile-content', 'logout-content',]);
         const data = JSON.parse(this.responseText);
         const schedule = data[0];
         const tasks = data[1];
-        // onScheduleTaskLoad(tasks);
-        // createScheduleTableDisplay(schedule);
-        onTasksTableLoad(schedule,tasks);
-
+        createScheduleTableDisplay(schedule);
+        onScheduleTaskLoad(tasks);
     } else {
         onOtherResponse(scheduleContentDivEl, this);
     }
   }
 
   
-  function createScheduleTableBody(schedule) {
+  function createScheduleTableBody(schedule,coordinated) {
       const tbodyEl = document.createElement('tbody');
   
       for(let i = 0; i < 25; i++){
 
-          const eventNameTdEl = document.createElement('td');
-          eventNameTdEl.classList.add('default-cell');
+        const eventNameTdEl = document.createElement('td');
+        eventNameTdEl.classList.add('default-cell');
         eventNameTdEl.textContent = i;
-        
+            
         const trEl = document.createElement('tr');
         trEl.appendChild(eventNameTdEl);
-        
+    
         for(let m = 0; m < schedule.days; m++){
             
             const tableNameTdEl = document.createElement('td');
             tableNameTdEl.classList.add('default-cell');
-            tableNameTdEl.textContent = ' ';
+            tableNameTdEl.textContent = coordinated.value;
             trEl.appendChild(tableNameTdEl);
         }
         
@@ -44,10 +42,10 @@ function onScheduleResponse() {
 }
 
   function createScheduleTableHeader(schedule) {
-      const trEl = document.createElement('tr');
+    const trEl = document.createElement('tr');
 
-      const eventNameThEl = document.createElement('th');
-      eventNameThEl.classList.add('default-th');``
+    const eventNameThEl = document.createElement('th');
+    eventNameThEl.classList.add('default-th');``
     eventNameThEl.textContent = 'Hours';
     
     trEl.appendChild(eventNameThEl);
@@ -65,21 +63,12 @@ function onScheduleResponse() {
     return theadEl;
 }
 function createScheduleTableDisplay(schedule) {
-  if (schedule.length === 0) {
-      removeAllChildren(scheduleContentDivEl);
-      const pEl = document.createElement('p');
-      pEl.setAttribute('id', 'schedule-info');
-      pEl.textContent = 'The activity log is empty';
-      scheduleContentDivEl.appendChild(pEl);
-  } else {
-      removeAllChildren(scheduleContentDivEl);
-      const tableEl = document.createElement('table');
-      const theadEl = createScheduleTableHeader(schedule);
-      const tbodyEl = createScheduleTableBody(schedule);
-      tableEl.appendChild(theadEl);
-      tableEl.appendChild(tbodyEl);
-      scheduleContentDivEl.appendChild(tableEl);
-  }
+    const tableEl = document.createElement('table');
+    const theadEl = createScheduleTableHeader(schedule);
+    const tbodyEl = createScheduleTableBody(schedule);
+    tableEl.appendChild(theadEl);
+    tableEl.appendChild(tbodyEl);
+    scheduleContentDivEl.appendChild(tableEl);
 }
 // ownerID kiiratása task ID helyett a nagy táblázatban
 
@@ -150,8 +139,4 @@ function appendTasks(tasks) {
          selectEl.appendChild(optionEl);
      }
      appendTasks(tasks);
- }
- function onTasksTableLoad(schedule,tasks){
-     onScheduleTaskLoad(tasks);
-     createScheduleTableDisplay(schedule);
  }

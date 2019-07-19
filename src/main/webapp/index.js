@@ -12,6 +12,8 @@ let schedulesContentDivEl;
 
 let scheduleContentDivEl;
 
+let scheduleTaskContentDivEl;
+
 let backToProfileContentDivEl;
 let logoutContentDivEl;
 let registerContentDivEl;
@@ -117,6 +119,8 @@ function onLoad() {
     schedulesContentDivEl = document.getElementById('schedules-content');
 
     scheduleContentDivEl = document.getElementById('schedule-content');
+
+    scheduleTaskContentDivEl = document.getElementById('schedule-task-content');
     
     backToProfileContentDivEl = document.getElementById('back-to-profile-content');
     
