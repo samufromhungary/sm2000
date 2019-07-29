@@ -1,16 +1,21 @@
 package com.codecool.web.servlet;
 
+import com.codecool.web.dao.CoordinatedDao;
 import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.dao.TaskDao;
+import com.codecool.web.dao.database.DataBaseCoordinatedDao;
 import com.codecool.web.dao.database.DatabaseScheduleDao;
 import com.codecool.web.dao.database.DatabaseTaskDao;
 import com.codecool.web.model.Account;
+import com.codecool.web.model.Coordinated;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
+import com.codecool.web.service.CoordinatedService;
 import com.codecool.web.service.LogService;
 import com.codecool.web.service.ScheduleService;
 import com.codecool.web.service.TaskService;
 import com.codecool.web.service.exception.ServiceException;
+import com.codecool.web.service.simple.SimpleCoordinatedService;
 import com.codecool.web.service.simple.SimpleLogService;
 import com.codecool.web.service.simple.SimpleScheduleService;
 import com.codecool.web.service.simple.SimpleTaskService;
@@ -34,6 +39,8 @@ public final class ScheduleServlet extends AbstractServlet {
         try (Connection connection = getConnection(req.getServletContext())) {
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             TaskDao taskDao = new DatabaseTaskDao(connection);
+            CoordinatedDao coordinatedDao = new DataBaseCoordinatedDao(connection);
+            CoordinatedService coordinatedService = new SimpleCoordinatedService(coordinatedDao);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
             TaskService taskService = new SimpleTaskService(taskDao, scheduleDao);
             Account account = (Account) req.getSession().getAttribute("account");
@@ -46,12 +53,15 @@ public final class ScheduleServlet extends AbstractServlet {
             Schedule schedule = scheduleService.getScheduleId(id);
             req.getSession().setAttribute("schedule",schedule);
 
+//            Coordinated coordinated = coordinatedService.getCoordinated(tasksId);
+
             List<Task> tasks = taskService.getTasksById(accounts_id);
 
 
             Object [] tempStorage = new Object[2];
             tempStorage[0] = schedule;
             tempStorage[1] = tasks;
+//            tempStorage[2] = coordinated;
 
             sendMessage(resp, HttpServletResponse.SC_OK, tempStorage);
 

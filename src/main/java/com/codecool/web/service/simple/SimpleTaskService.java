@@ -2,6 +2,7 @@ package com.codecool.web.service.simple;
 
 import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.dao.TaskDao;
+import com.codecool.web.model.Coordinated;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
 import com.codecool.web.service.TaskService;

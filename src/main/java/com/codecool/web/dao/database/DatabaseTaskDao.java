@@ -182,7 +182,6 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
             connection.setAutoCommit(autoCommit);
         }
     }
-
     private Task fetchTask(ResultSet resultSet)throws SQLException{
         int id = resultSet.getInt("id");
         String title = resultSet.getString("title");

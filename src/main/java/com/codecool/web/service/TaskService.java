@@ -1,5 +1,6 @@
 package com.codecool.web.service;
 
+import com.codecool.web.model.Coordinated;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Task;
 import com.codecool.web.service.exception.ServiceException;
