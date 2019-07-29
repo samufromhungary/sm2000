@@ -31,6 +31,15 @@
         <title>App</title>
     </head>
 <body>
+<div>
+    <div id="back-to-profile-content" class="hidden content">
+        <button onclick="onBackToProfileClicked();" class="backtoprofile">Back to profile</button>
+    </div>
+    <br><br>
+    <div id="logout-content" class="hidden content">
+        <button id="logout-button" class="logoutbutton">Logout</button>
+    </div>
+</div>
 <div id="login-content" class="content" style="text-align: center">
     <h1>Welcome to Schedule Master 2000!</h1>
     <form id="login-form" onsubmit="return false;" class="login">
@@ -96,8 +105,10 @@
     </form>
     <h2>Delete schedule</h2>
     <form id="schedule-delete-form" onsubmit="return false">
-        <select name="scheduleTitles" multiple>
+        <select name="scheduleTitles" class="selector">
         </select>
+        <br>
+        <br>
         <button onclick="onScheduleDeleteClicked();">Delete</button>
     </form>
 </div>
@@ -140,18 +151,13 @@
     </form>
     <h2>Delete from tasks</h2>
     <form id="task-delete-form" onsubmit="return false">
-        <select name="taskTitles" multiple>
+        <select name="taskTitles" class="selector">
         </select>
+        <br>
+        <br>
         <button onclick="onTaskDeleteClicked();">Delete</button>
     </form>
 </div>
 <br>
-<div id="back-to-profile-content" class="hidden content">
-    <button onclick="onBackToProfileClicked();">Back to profile</button>
-</div>
-<br>
-<div id="logout-content" class="hidden content">
-    <button id="logout-button">Logout</button>
-</div>
 </body>
 </html>

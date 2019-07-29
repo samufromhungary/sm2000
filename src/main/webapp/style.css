@@ -43,6 +43,30 @@ h1 {
     display: none;
 }
 
+.sch {
+    text-align: left;
+}
+
+.tas {
+    text-align: right;
+}
+
+.selector {
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    border: solid black 1px;
+    padding: 5px 5px;
+}
+
+.backtoprofile {
+    float: right;
+}
+
+.logoutbutton {
+    float: right;
+}
+
 /* LIST #1 */
 #profile-content {
 }
