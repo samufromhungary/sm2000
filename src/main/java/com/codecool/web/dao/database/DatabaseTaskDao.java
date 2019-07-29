@@ -166,7 +166,7 @@ public final class DatabaseTaskDao extends AbstractDao implements TaskDao {
     public void addToCoordinated(int tasksId, int schedulesId, int day, int startDate, int endDate) throws SQLException{
         boolean autoCommit = connection.getAutoCommit();
         connection.setAutoCommit(false);
-        String sql = "INSERT INTO coordinated (tasks_id, schedules_id, day, start_date, end_date) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO coordinated (tasks_id, schedules_id, selected_day, start_date, end_date) VALUES (?, ?, ?, ?, ?)";
         try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);){
             statement.setInt(1, tasksId);
             statement.setInt(2, schedulesId);
