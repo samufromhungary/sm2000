@@ -114,14 +114,14 @@ function onTaskAssignResponse() {
         onOtherResponse(scheduleContentDivEl, this);
     }
 }
-function appendTasks(tasks) {
-    removeAllChildren(scheduleTasksTableBodyEl);
+// function appendTasks(tasks) {
+//     removeAllChildren(scheduleTasksTableBodyEl);
 
-    for (let i = 0; i < tasks.length; i++) {
-        const task = tasks[i];
-        appendTask(task);
-    }
- }
+//     for (let i = 0; i < tasks.length; i++) {
+//         const task = tasks[i];
+//         appendTask(task);
+//     }
+//  }
   
  function onScheduleTaskLoad(tasks) {
      scheduleTasksTableEl = document.getElementById('tasks');
