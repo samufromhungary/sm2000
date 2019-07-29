@@ -76,14 +76,18 @@ RETURNS TRIGGER AS
  CREATE OR REPLACE FUNCTION check_selected_day_value()
  RETURNS TRIGGER AS
      'BEGIN
-         SELECT schedules.days as days FROM schedules
-         WHERE schedules.id = NEW.schedules_id;
+        DECLARE
+            varDays integer;
+                BEGIN
+                     SELECT schedules.days into varDays FROM schedules
+                     WHERE schedules.id = NEW.schedules_id;
 
-         IF ( NEW.selected_day > days) THEN
-             RAISE EXCEPTION ''Select a valid day'';
-         ELSE
-             RETURN NEW;
-         END IF;
+                     IF ( NEW.selected_day > varDays) THEN
+                         RAISE EXCEPTION ''Select a valid day'';
+                     ELSE
+                         RETURN NEW;
+                     END IF;
+             END;
      END;
  'LANGUAGE plpgsql;
 
