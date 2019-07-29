@@ -20,7 +20,7 @@ create table if not exists tasks(
 create table if not exists coordinated(
     tasks_id int REFERENCES tasks(id),
     schedules_id int REFERENCES schedules(id),
-	day numeric(1),
+	selected_day numeric(1),
 	start_date numeric(2),
 	end_date numeric(2)
 );
@@ -73,25 +73,26 @@ RETURNS TRIGGER AS
     END;
 'LANGUAGE plpgsql;
 
--- CREATE OR REPLACE FUNCTION check_day_value()
--- RETURNS TRIGGER AS
---     'BEGIN
---         PERFORM schedules.days as days FROM schedules
---         WHERE schedules.id = NEW.schedules_id;
+ CREATE OR REPLACE FUNCTION check_selected_day_value()
+ RETURNS TRIGGER AS
+     'BEGIN
+         SELECT schedules.days as days FROM schedules
+         WHERE schedules.id = NEW.schedules_id;
 
---         IF ( NEW.day > days) THEN
---             RAISE EXCEPTION ''Select a valid day'';
---         ELSE
---             RETURN NEW;
---         END IF;
---     END;
--- 'LANGUAGE plpgsql;
+         IF ( NEW.selected_day > days) THEN
+             RAISE EXCEPTION ''Select a valid day'';
+         ELSE
+             RETURN NEW;
+         END IF;
+     END;
+ 'LANGUAGE plpgsql;
 
 DROP TRIGGER IF EXISTS check_account_uniqueness ON accounts;
 DROP TRIGGER IF EXISTS check_schedule_uniqueness ON schedules;
 DROP TRIGGER IF EXISTS check_task_uniqueness ON tasks;
 DROP TRIGGER IF EXISTS check_coordinated ON coordinated;
 DROP TRIGGER IF EXISTS check_day_value ON coordinated;
+DROP TRIGGER IF EXISTS check_selected_day_value ON coordinated;
 
 CREATE TRIGGER check_account_uniqueness
     BEFORE INSERT ON accounts
@@ -113,10 +114,10 @@ CREATE TRIGGER check_coordinated
     FOR EACH ROW
     EXECUTE PROCEDURE check_coordinated();
 
--- CREATE TRIGGER check_day_value
---     BEFORE INSERT ON coordinated
---     FOR EACH ROW
---     EXECUTE PROCEDURE check_day_value();
+ CREATE TRIGGER check_selected_day_value
+     BEFORE INSERT ON coordinated
+     FOR EACH ROW
+     EXECUTE PROCEDURE check_day_value();
 
 INSERT INTO accounts (username ,email,password, permission) VALUES
     ('admin','admin@admin','admin','admin') ON CONFLICT DO NOTHING;
