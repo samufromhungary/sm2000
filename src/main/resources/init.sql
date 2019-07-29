@@ -91,7 +91,6 @@ DROP TRIGGER IF EXISTS check_account_uniqueness ON accounts;
 DROP TRIGGER IF EXISTS check_schedule_uniqueness ON schedules;
 DROP TRIGGER IF EXISTS check_task_uniqueness ON tasks;
 DROP TRIGGER IF EXISTS check_coordinated ON coordinated;
-DROP TRIGGER IF EXISTS check_day_value ON coordinated;
 DROP TRIGGER IF EXISTS check_selected_day_value ON coordinated;
 
 CREATE TRIGGER check_account_uniqueness
@@ -117,7 +116,7 @@ CREATE TRIGGER check_coordinated
  CREATE TRIGGER check_selected_day_value
      BEFORE INSERT ON coordinated
      FOR EACH ROW
-     EXECUTE PROCEDURE check_day_value();
+     EXECUTE PROCEDURE check_selected_day_value();
 
 INSERT INTO accounts (username ,email,password, permission) VALUES
     ('admin','admin@admin','admin','admin') ON CONFLICT DO NOTHING;
