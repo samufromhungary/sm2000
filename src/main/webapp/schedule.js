@@ -7,7 +7,7 @@ function onScheduleResponse() {
         const data = JSON.parse(this.responseText);
         const schedule = data[0];
         const tasks = data[1];
-        createScheduleTableDisplay(schedule);
+        createScheduleTableDisplay(schedule, tasks);
         onScheduleTaskLoad(tasks);
     } else {
         onOtherResponse(scheduleContentDivEl, this);
@@ -15,10 +15,10 @@ function onScheduleResponse() {
   }
 
   
-  function createScheduleTableBody(schedule,coordinated) {
+  function createScheduleTableBody(schedule, tasks) {
       const tbodyEl = document.createElement('tbody');
   
-      for(let i = 0; i < 25; i++){
+      for(let i = 1; i < 25; i++){
 
         const eventNameTdEl = document.createElement('td');
         eventNameTdEl.classList.add('default-cell');
@@ -31,7 +31,7 @@ function onScheduleResponse() {
             
             const tableNameTdEl = document.createElement('td');
             tableNameTdEl.classList.add('default-cell');
-            tableNameTdEl.textContent = coordinated.value;
+            tableNameTdEl.textContent = ' ';
             trEl.appendChild(tableNameTdEl);
         }
         
@@ -62,10 +62,10 @@ function onScheduleResponse() {
     theadEl.appendChild(trEl);
     return theadEl;
 }
-function createScheduleTableDisplay(schedule) {
+function createScheduleTableDisplay(schedule, tasks) {
     const tableEl = document.createElement('table');
     const theadEl = createScheduleTableHeader(schedule);
-    const tbodyEl = createScheduleTableBody(schedule);
+    const tbodyEl = createScheduleTableBody(schedule, tasks);
     tableEl.appendChild(theadEl);
     tableEl.appendChild(tbodyEl);
     scheduleContentDivEl.appendChild(tableEl);
@@ -101,6 +101,8 @@ function onTaskAssignClicked(){
   xhr.addEventListener('error', onNetworkError);
   xhr.open('POST', 'protected/schedule');
   xhr.send(params);
+
+  return tasksId;
 }
 
 
