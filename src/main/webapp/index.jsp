@@ -32,12 +32,13 @@
     </head>
 <body>
 <div>
-    <div id="back-to-profile-content" class="hidden content">
-        <button onclick="onBackToProfileClicked();" class="backtoprofile">Back to profile</button>
-    </div>
-    <br><br>
+    <br>
     <div id="logout-content" class="hidden content">
         <button id="logout-button" class="logoutbutton">Logout</button>
+    </div>
+    <br><br>
+    <div id="back-to-profile-content" class="hidden content">
+        <button onclick="onBackToProfileClicked();" class="backtoprofile">Back to profile</button>
     </div>
 </div>
 <div id="login-content" class="content" style="text-align: center">

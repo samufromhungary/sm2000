@@ -61,10 +61,12 @@ h1 {
 
 .backtoprofile {
     float: right;
+    margin-right: 5%;
 }
 
 .logoutbutton {
     float: right;
+    margin-right: 5%;
 }
 
 /* LIST #1 */
@@ -76,11 +78,11 @@ h1 {
     text-align: center;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
-    padding: 10px 0;
-    max-width: 30%;
+    padding: 12px 0;
+    max-width: 35%;
     margin-left: auto;
     margin-right: auto;
-    font-size: 26px;
+    font-size: 35px;
 }
 
 #profile-content ul li {
