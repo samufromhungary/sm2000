@@ -76,14 +76,18 @@ RETURNS TRIGGER AS
  CREATE OR REPLACE FUNCTION check_selected_day_value()
  RETURNS TRIGGER AS
      'BEGIN
-         SELECT schedules.days as days FROM schedules
-         WHERE schedules.id = NEW.schedules_id;
+        DECLARE
+            varDays integer;
+                BEGIN
+                     SELECT schedules.days into varDays FROM schedules
+                     WHERE schedules.id = NEW.schedules_id;
 
-         IF ( NEW.selected_day > days) THEN
-             RAISE EXCEPTION ''Select a valid day'';
-         ELSE
-             RETURN NEW;
-         END IF;
+                     IF ( NEW.selected_day > varDays) THEN
+                         RAISE EXCEPTION ''Select a valid day'';
+                     ELSE
+                         RETURN NEW;
+                     END IF;
+             END;
      END;
  'LANGUAGE plpgsql;
 
@@ -91,7 +95,6 @@ DROP TRIGGER IF EXISTS check_account_uniqueness ON accounts;
 DROP TRIGGER IF EXISTS check_schedule_uniqueness ON schedules;
 DROP TRIGGER IF EXISTS check_task_uniqueness ON tasks;
 DROP TRIGGER IF EXISTS check_coordinated ON coordinated;
-DROP TRIGGER IF EXISTS check_day_value ON coordinated;
 DROP TRIGGER IF EXISTS check_selected_day_value ON coordinated;
 
 CREATE TRIGGER check_account_uniqueness
@@ -117,7 +120,7 @@ CREATE TRIGGER check_coordinated
  CREATE TRIGGER check_selected_day_value
      BEFORE INSERT ON coordinated
      FOR EACH ROW
-     EXECUTE PROCEDURE check_day_value();
+     EXECUTE PROCEDURE check_selected_day_value();
 
 INSERT INTO accounts (username ,email,password, permission) VALUES
     ('admin','admin@admin','admin','admin') ON CONFLICT DO NOTHING;
