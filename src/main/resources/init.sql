@@ -67,6 +67,10 @@ RETURNS TRIGGER AS
             RAISE EXCEPTION ''Lusta vagyok exception messaget irni, valamelyik date nem jo'';
         ELSIF (NEW.start_date >= NEW.end_date) THEN
             RAISE EXCEPTION ''Start date must be earlier than end date'';
+        ELSIF (SELECT EXISTS(SELECT 1 FROM coordinated WHERE schedules_id = NEW.schedules_id AND NEW.start_date = start_date OR NEW.end_date = end_date AND schedules_id = NEW.schedules_id) = true) THEN
+            RAISE EXCEPTION ''Already exists'';
+        ELSIF (SELECT EXISTS(SELECT 1 FROM coordinated WHERE schedules_id = NEW.schedules_id AND NEW.start_date >= start_date AND NEW.start_date <= end_date AND NEW.end_date >= start_date AND NEW.end_date <= end_date) = true) THEN
+            RAISE EXCEPTION ''No good'';
         ELSE
             RETURN NEW;
         END IF;
