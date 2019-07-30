@@ -9,22 +9,6 @@ function onLoginResponse() {
     }
 }
 
-function onSignIn(googleUser) {
-    const email = profile.getEmail();
-    const username = profile.getName();
-    const user = googleUser.getBasicProfile();
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onLoginResponse);
-    xhr.addEventListener('error', onNetworkError);
-    xhr.send(user);
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-}
-
-
 function onLoginButtonClicked() {
     const loginFormEl = document.forms['login-form'];
     const emailInputEl = loginFormEl.querySelector('input[name="email"]');

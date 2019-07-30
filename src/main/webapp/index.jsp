@@ -15,6 +15,7 @@
         <c:url value="/schedule.js" var="scheduleScriptUrl"/>
         <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
         <c:url value="/logout.js" var="logoutScriptUrl"/>
+        <c:url value="/auth.js" var="authScriptUrl"/>
         <link rel="stylesheet" type="text/css" href="${styleUrl}">
         <link rel="stylesheet" href="tablecss.css">
         <link rel="stylesheet" href="login-register.css">
@@ -29,6 +30,7 @@
         <script src="${scheduleScriptUrl}"></script>
         <script src="${backToProfileScriptUrl}"></script>
         <script src="${logoutScriptUrl}"></script>
+        <script src="${authScriptUrl}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <title>App</title>
@@ -37,6 +39,14 @@
 <body>
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
 <div>
+<div class="hidden content" id="google-content">
+    <p>Profile details</p>
+    <img id="pic" class="img-circle" width="100" height="100"/>
+    <p>Email address</p>
+    <p id="email" class="alert alert-danger"></p>
+    <button onclick="signOut()" class="btn btn-danger">Sign Out</button>
+</div>
+
     <br>
     <div id="logout-content" class="hidden content">
         <button id="logout-button" class="logoutbutton">Logout</button>

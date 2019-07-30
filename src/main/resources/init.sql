@@ -2,7 +2,7 @@ create table if not exists accounts(
     id SERIAL primary key,
     username text not null,
     email text unique not null,
-    password text not null,
+    password text,
     permission text not null
 );
  create table if not exists schedules(
