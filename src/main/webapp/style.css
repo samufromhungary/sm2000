@@ -16,10 +16,17 @@ body {
     margin-left: 10%;
 }
 
+.g-signin2 {
+    color: black;
+    text-shadow: none;
+    margin-left: 46.75%;
+}
+
 .getback {
     width: 15%;
     float: right;
     height: 10%;
+    border-radius: 3px;
 }
 
 
@@ -106,7 +113,6 @@ select {
     margin-right: 5%;
 }
 
-/* LIST #1 */
 #profile-content {
 }
 
