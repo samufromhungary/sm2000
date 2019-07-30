@@ -32,7 +32,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <title>App</title>
-        <meta name="google-signin-client_id" content="192827850537-v1f12jckk1no8dhdfcambtjm71nu96ko.apps.googleusercontent.com">
+        <meta name="google-signin-client_id" content="354584955844-7q0r3acj2tjl0tp9o80o306rrikdtfmr.apps.googleusercontent.com">
     </head>
 <body>
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
