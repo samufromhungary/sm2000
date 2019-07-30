@@ -40,7 +40,6 @@
 <body>
 <div class="bigdiv">
     <div>
-        <br>
         <div id="logout-content" class="hidden content">
             <button id="logout-button" class="logoutbutton">Logout</button>
         </div>
@@ -50,32 +49,6 @@
         </div>
     </div>
     <br>
-    <br>
-    <div id="login-content" class="content" style="text-align: center">
-        <h1 class="maintitle">Welcome to Schedule Master 2000!</h1>
-        <form id="login-form" onsubmit="return false;" class="login">
-            <input type="text" name="email" placeholder=" email">
-            <br><br>
-            <input type="password" name="password" placeholder=" password">
-            <br><br>
-            <button id="login-button">Login</button>
-        </form>
-        <br>
-        <button id="toggle-trigger" onclick="togglediv('register-content')">Sign up</button>
-    </div>
-    <br>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <div id="register-content" class="hidden content">
-        <form id="register-form" onsubmit="return false;" class="register">
-            <input type="text" name="username" placeholder=" username">
-            <br><br>
-            <input type="text" name="email" placeholder=" email">
-            <br><br>
-            <input type="password" name="password" placeholder=" password">
-            <br><br>
-            <button id="register-button" onclick="togglediv('register-content')">Create account</button>
-        </form>
-    </div>
     <div id="profile-content" class="hidden content">
         <h1>Profile</h1>
         <%--
@@ -171,6 +144,31 @@
         </form>
     </div>
     <br>
+    <div id="login-content" class="content" style="text-align: center">
+        <h1 class="maintitle">Welcome to Schedule Master 2000!</h1>
+        <form id="login-form" onsubmit="return false;" class="login">
+            <input type="text" name="email" placeholder=" email">
+            <br><br>
+            <input type="password" name="password" placeholder=" password">
+            <br><br>
+            <button id="login-button">Login</button>
+        </form>
+        <br>
+        <button id="toggle-trigger" onclick="togglediv('register-content')">Sign up</button>
+    </div>
+    <br>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div id="register-content" class="hidden content">
+        <form id="register-form" onsubmit="return false;" class="register">
+            <input type="text" name="username" placeholder=" username">
+            <br><br>
+            <input type="text" name="email" placeholder=" email">
+            <br><br>
+            <input type="password" name="password" placeholder=" password">
+            <br><br>
+            <button id="register-button" onclick="togglediv('register-content')">Create account</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>
