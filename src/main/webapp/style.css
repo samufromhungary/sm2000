@@ -4,12 +4,52 @@ body {
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     font-size: 18px;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 2px 2px 0 #000;
     color: white;
 }
 
+#schedule-content {
+    width: 85%;
+    float: left;
+    text-align: center;
+    margin-left: 10%;
+}
+
+.g-signin2 {
+    color: black;
+    text-shadow: none;
+    margin-left: 46.75%;
+}
+
+.getback {
+    width: 15%;
+    float: right;
+    height: 10%;
+    border-radius: 3px;
+}
+
+
+#profile-content {
+    width: 85%;
+    float: left;
+    margin-left: 10%;
+
+}
+
+#schedules-content {
+    width: 85%;
+    float: left;
+    margin-left: 10%;
+    text-align: center;
+}
+
+#tasks-content {
+    width: 85%;
+    float: left;
+    margin-left: 10%;
+    text-align: center;
+}
 
 a {
     color: white;
@@ -24,6 +64,10 @@ a {
 }
 
 h1 {
+   text-align: center;
+}
+
+.maintitle {
     text-align: center;
 }
 
@@ -51,7 +95,7 @@ h1 {
     text-align: right;
 }
 
-.selector {
+select {
     display: inline-block;
     vertical-align: top;
     overflow: hidden;
@@ -69,20 +113,19 @@ h1 {
     margin-right: 5%;
 }
 
-/* LIST #1 */
 #profile-content {
 }
 
 #profile-content ul {;
     list-style: none;
     text-align: center;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    border-top: 2px solid #eee;
+    border-bottom: 2px solid #eee;
     padding: 12px 0;
     max-width: 35%;
     margin-left: auto;
     margin-right: auto;
-    font-size: 35px;
+    font-size: 40px;
 }
 
 #profile-content ul li {

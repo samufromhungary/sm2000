@@ -56,7 +56,7 @@ function appendSchedule(schedule) {
     idTdEl.textContent = schedule.id;
 
     const aEl = document.createElement('a');
-    aEl.textContent = schedule.id;
+    aEl.textContent = schedule.title;
     aEl.href = 'javascript:void(0);';
     aEl.dataset.scheduleId = schedule.id;
     aEl.addEventListener('click', onScheduleClicked);
