@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="en">
+<<<<<<< HEAD
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,7 @@
     <link rel="stylesheet" href="tablecss.css">
     <link rel="stylesheet" href="login-register.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="${indexScriptUrl}"></script>
     <script src="${loginScriptUrl}"></script>
     <script src="${registerScriptUrl}"></script>
@@ -28,9 +30,13 @@
     <script src="${scheduleScriptUrl}"></script>
     <script src="${backToProfileScriptUrl}"></script>
     <script src="${logoutScriptUrl}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>App</title>
+    <meta name="google-signin-client_id" content="354584955844-7q0r3acj2tjl0tp9o80o306rrikdtfmr.apps.googleusercontent.com">
 </head>
 <body>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
 <div class="bigdiv">
     <div class="getback">
         <div id="logout-content" class="hidden content">
@@ -41,6 +47,43 @@
             <button onclick="onBackToProfileClicked();" class="backtoprofile">Back to profile</button>
         </div>
     </div>
+=======
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <c:url value="/style.css" var="styleUrl"/>
+        <c:url value="/index.js" var="indexScriptUrl"/>
+        <c:url value="/login.js" var="loginScriptUrl"/>
+        <c:url value="/register.js" var="registerScriptUrl"/>
+        <c:url value="/profile.js" var="profileScriptUrl"/>
+        <c:url value="/tasks.js" var="tasksScriptUrl"/>
+        <c:url value="/schedules.js" var="schedulesScriptUrl"/>
+        <c:url value="/schedule.js" var="scheduleScriptUrl"/>
+        <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
+        <c:url value="/logout.js" var="logoutScriptUrl"/>
+        <link rel="stylesheet" type="text/css" href="${styleUrl}">
+        <link rel="stylesheet" href="tablecss.css">
+        <link rel="stylesheet" href="login-register.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="${indexScriptUrl}"></script>
+        <script src="${loginScriptUrl}"></script>
+        <script src="${registerScriptUrl}"></script>
+        <script src="${profileScriptUrl}"></script>
+        <script src="${tasksScriptUrl}"></script>
+        <script src="${schedulesScriptUrl}"></script>
+        <script src="${scheduleScriptUrl}"></script>
+        <script src="${backToProfileScriptUrl}"></script>
+        <script src="${logoutScriptUrl}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <title>App</title>
+        <meta name="google-signin-client_id" content="354584955844-7q0r3acj2tjl0tp9o80o306rrikdtfmr.apps.googleusercontent.com">
+    </head>
+<body>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<div>
+>>>>>>> origin/master
     <br>
     <br>
     <div id="login-content" class="content" style="text-align: center">
