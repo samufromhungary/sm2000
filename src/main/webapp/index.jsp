@@ -38,7 +38,17 @@
           content="354584955844-7q0r3acj2tjl0tp9o80o306rrikdtfmr.apps.googleusercontent.com">
 </head>
 <body>
-<div>
+<div class="bigdiv">
+    <div>
+        <br>
+        <div id="logout-content" class="hidden content">
+            <button id="logout-button" class="logoutbutton">Logout</button>
+        </div>
+        <br><br>
+        <div id="back-to-profile-content" class="hidden content">
+            <button onclick="onBackToProfileClicked();" class="backtoprofile">Back to profile</button>
+        </div>
+    </div>
     <br>
     <br>
     <div id="login-content" class="content" style="text-align: center">
