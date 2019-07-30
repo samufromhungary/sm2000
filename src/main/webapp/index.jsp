@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="tablecss.css">
         <link rel="stylesheet" href="login-register.css">
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script src="${indexScriptUrl}"></script>
         <script src="${loginScriptUrl}"></script>
         <script src="${registerScriptUrl}"></script>
@@ -28,9 +29,13 @@
         <script src="${scheduleScriptUrl}"></script>
         <script src="${backToProfileScriptUrl}"></script>
         <script src="${logoutScriptUrl}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <title>App</title>
+        <meta name="google-signin-client_id" content="192827850537-v1f12jckk1no8dhdfcambtjm71nu96ko.apps.googleusercontent.com">
     </head>
 <body>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
 <div id="login-content" class="content" style="text-align: center">
     <h1>Welcome to Schedule Master 2000!</h1>
     <form id="login-form" onsubmit="return false;" class="login">
