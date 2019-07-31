@@ -12,7 +12,7 @@ function onSignIn(googleUser) {
   $(".data").css("display", "block");
   $("#pic").css('src', profile.getImageUrl());
   $("#email").text(profile.getEmail());
-  showContents(['google-content', 'schedules-content', 'tasks-content']);
+  showContents(['profile-content', 'back-to-profile-content']);
 }
 
 function signOut() {
