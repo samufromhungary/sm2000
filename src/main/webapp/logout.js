@@ -10,6 +10,8 @@ function onLogoutResponse() {
     }
 }
 
+
+
 function onLogoutButtonClicked(event) {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onLogoutResponse);

@@ -75,6 +75,8 @@ function onNetworkError(response) {
     newError(bodyEl, 'Network error, please try reloading the page');
 }
 
+
+
 function onOtherResponse(targetEl, xhr) {
     if (xhr.status === NOT_FOUND) {
         newError(targetEl, 'Not found');
