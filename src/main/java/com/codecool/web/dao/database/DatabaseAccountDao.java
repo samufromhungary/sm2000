@@ -117,17 +117,6 @@ public final class DatabaseAccountDao extends AbstractDao implements AccountDao 
             throw ex;
             }
         }
-
-    @Override
-    public boolean validateEmail(String email) throws SQLException {
-        String sql = "SELECT email FROM accounts WHERE email = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
-            return resultSet.next();
-        }
-    }
-
     private Account fetchAccount(ResultSet resultSet)throws SQLException{
         int id = resultSet.getInt("id");
         String username = resultSet.getString("username");
