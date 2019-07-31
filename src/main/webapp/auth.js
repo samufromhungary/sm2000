@@ -1,15 +1,24 @@
 function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  var id_token = googleUser.getAuthResponse().id_token;
-  const xhr = new XMLHttpRequest();
-  const params = new URLSearchParams();
-  params.append('id-token', id_token);
-  xhr.addEventListener('load', onLoginResponse);
+  const id_token = googleUser.getAuthResponse().id_token;
+  const profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+  var xhr = new XMLHttpRequest();
   xhr.open('POST', 'auth');
-  xhr.send(params);
-  $(".g-signin2").css("display", "none");
-  $(".data").css("display", "block");
-  $("#pic").css('src', profile.getImageUrl());
-  $("#email").text(profile.getEmail());
-  showContents(['google-content', 'schedules-content', 'tasks-content']);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onload = onVerified;
+  xhr.send('idtoken=' + id_token);
+}
+
+function onVerified() {
+  if (this.status === OK) {
+      const user = JSON.parse(this.responseText);
+      alert("OK");
+      onProfileLoad(user)
+  } else {
+      onOtherResponse(loginContentDivEl, this);
+  }
 }

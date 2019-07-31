@@ -2,6 +2,7 @@ package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.AccountDao;
 import com.codecool.web.model.Account;
+import com.codecool.web.service.exception.ServiceException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -52,6 +53,28 @@ public final class DatabaseAccountDao extends AbstractDao implements AccountDao 
                 valid = true;
             }
         }return valid;
+    }
+
+    @Override
+    public Account addAccount(String username, String email, String password, String permission) throws SQLException, ServiceException {
+        boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
+        String sql = "INSERT INTO accounts (username, email, password, permission) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setString(3, password);
+            statement.setString(4, permission);
+            executeInsert(statement);
+            int id = fetchGeneratedId(statement);
+            connection.commit();
+            return new Account(id, username, email, password, permission);
+        } catch (SQLException ex) {
+            connection.rollback();
+            throw ex;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
     }
 
     @Override

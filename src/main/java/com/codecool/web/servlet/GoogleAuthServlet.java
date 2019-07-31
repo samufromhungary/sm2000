@@ -44,22 +44,27 @@ public final class GoogleAuthServlet extends AbstractServlet {
                 //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
                 .build();
 
-            String id_token = req.getParameter("id-token");
+            String id_token = req.getParameter("idtoken");
             GoogleIdToken idToken = verifier.verify(id_token);
             if (idToken != null) {
                 Payload payload = idToken.getPayload();
                 // Get profile information from payload
                 String email = payload.getEmail();
+                boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+                String name = (String) payload.get("name");
+
+
                 Account account;
-                if (accountService.accountAlreadyExists(email)) {
+                if (accountService.findByEmail(email) != null) {
                     account = accountService.findByEmail(email);
                 } else {
-                    String username = (String) payload.get("name");
-                    String emailNew = payload.getEmail();
-                    String password = null;
-                    String permission = "regular";
-                    registerService.registerUser(username, emailNew, password, permission);
-                    account = accountService.findByEmail(emailNew);
+                    account = accountService.addAccount(name,email,null,"regular");
+//                    String username = (String) payload.get("name");
+//                    String emailNew = payload.getEmail();
+//                    String password = null;
+//                    String permission = "regular";
+//                    registerService.registerUser(username, emailNew, password, permission);
+//                    account = accountService.findByEmail(emailNew);
                 }
                 req.getSession().setAttribute("account", account);
                 sendMessage(resp, HttpServletResponse.SC_OK, account);

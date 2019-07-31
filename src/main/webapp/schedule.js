@@ -7,15 +7,14 @@ function onScheduleResponse() {
         const data = JSON.parse(this.responseText);
         const schedule = data[0];
         const tasks = data[1];
-        createScheduleTableDisplay(schedule, tasks);
+        createScheduleTableDisplay(schedule);
         onScheduleTaskLoad(tasks);
     } else {
         onOtherResponse(scheduleContentDivEl, this);
     }
   }
-
   
-  function createScheduleTableBody(schedule, tasks) {
+  function createScheduleTableBody(schedule) {
       const tbodyEl = document.createElement('tbody');
   
       for(let i = 1; i < 25; i++){
@@ -62,16 +61,14 @@ function onScheduleResponse() {
     theadEl.appendChild(trEl);
     return theadEl;
 }
-function createScheduleTableDisplay(schedule, tasks) {
+function createScheduleTableDisplay(schedule) {
     const tableEl = document.createElement('table');
     const theadEl = createScheduleTableHeader(schedule);
-    const tbodyEl = createScheduleTableBody(schedule, tasks);
+    const tbodyEl = createScheduleTableBody(schedule);
     tableEl.appendChild(theadEl);
     tableEl.appendChild(tbodyEl);
     scheduleContentDivEl.appendChild(tableEl);
 }
-// ownerID kiiratása task ID helyett a nagy táblázatban
-
 function onTaskAssignClicked(){
   const scheduleTaskFormEl = document.forms['schedule-task-form']
      
@@ -109,19 +106,11 @@ function onTaskAssignClicked(){
 function onTaskAssignResponse() {
     clearMessages();
     if (this.status === OK) {
-        onSchedulesClicked();
+        onScheduleClicked();
     } else {
         onOtherResponse(scheduleContentDivEl, this);
     }
 }
-// function appendTasks(tasks) {
-//     removeAllChildren(scheduleTasksTableBodyEl);
-
-//     for (let i = 0; i < tasks.length; i++) {
-//         const task = tasks[i];
-//         appendTask(task);
-//     }
-//  }
   
  function onScheduleTaskLoad(tasks) {
      scheduleTasksTableEl = document.getElementById('tasks');

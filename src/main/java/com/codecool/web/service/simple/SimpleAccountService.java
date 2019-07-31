@@ -31,6 +31,11 @@ public final class SimpleAccountService implements AccountService {
     }
 
     @Override
+    public Account addAccount(String username, String email, String password, String permission) throws ServiceException, SQLException {
+        return accountDao.addAccount(username,email,password,permission);
+    }
+
+    @Override
     public boolean accountAlreadyExists(String email) throws SQLException, ServiceException{
         return accountDao.accountAlreadyExists(email);
     }
