@@ -13,6 +13,8 @@ public interface AccountService {
 
     Account findByEmail(String email) throws SQLException, ServiceException;
 
+    Account addAccount (String username,String email, String password, String permission) throws ServiceException, SQLException;
+
     boolean accountAlreadyExists(String email) throws SQLException, ServiceException;
 
     boolean validateEmail(String email) throws SQLException, ServiceException;

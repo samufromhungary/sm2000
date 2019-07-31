@@ -1,6 +1,7 @@
 package com.codecool.web.dao;
 
 import com.codecool.web.model.Account;
+import com.codecool.web.service.exception.ServiceException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -17,5 +18,5 @@ public interface AccountDao {
 
     boolean accountAlreadyExists(String email) throws SQLException;
 
-    boolean validateEmail(String email) throws SQLException;
+    Account addAccount(String username, String email, String password, String permission) throws SQLException, ServiceException;
 }

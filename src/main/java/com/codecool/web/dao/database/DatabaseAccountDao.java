@@ -2,6 +2,7 @@ package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.AccountDao;
 import com.codecool.web.model.Account;
+import com.codecool.web.service.exception.ServiceException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -55,6 +56,28 @@ public final class DatabaseAccountDao extends AbstractDao implements AccountDao 
     }
 
     @Override
+    public Account addAccount(String username, String email, String password, String permission) throws SQLException, ServiceException {
+        boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
+        String sql = "INSERT INTO accounts (username, email, password, permission) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setString(3, password);
+            statement.setString(4, permission);
+            executeInsert(statement);
+            int id = fetchGeneratedId(statement);
+            connection.commit();
+            return new Account(id, username, email, password, permission);
+        } catch (SQLException ex) {
+            connection.rollback();
+            throw ex;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
+    }
+
+    @Override
     public Account add(String username, String email, String password, String permission) throws SQLException{
         if (username == null || "".equals(username) || password == null || "".equals(password) ||
             email == null || "".equals(email) || permission == null || "".equals(permission)) {
@@ -94,17 +117,6 @@ public final class DatabaseAccountDao extends AbstractDao implements AccountDao 
             throw ex;
             }
         }
-
-    @Override
-    public boolean validateEmail(String email) throws SQLException {
-        String sql = "SELECT email FROM accounts WHERE email = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
-            return resultSet.next();
-        }
-    }
-
     private Account fetchAccount(ResultSet resultSet)throws SQLException{
         int id = resultSet.getInt("id");
         String username = resultSet.getString("username");
