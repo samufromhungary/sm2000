@@ -99,10 +99,8 @@ function onTaskAssignClicked(){
   xhr.open('POST', 'protected/schedule');
   xhr.send(params);
 
-  return tasksId;
+    return tasksId;
 }
-
-
 function onTaskAssignResponse() {
     clearMessages();
     if (this.status === OK) {
