@@ -15,7 +15,7 @@
         <c:url value="/schedule.js" var="scheduleScriptUrl"/>
         <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
         <c:url value="/logout.js" var="logoutScriptUrl"/>
-        <c:url value="/auth.js" var="authScriptUrl"/>
+        <c:url value="/googleAuth.js" var="googleAuthScriptUrl"/>
         <link rel="stylesheet" type="text/css" href="${styleUrl}">
         <link rel="stylesheet" href="tablecss.css">
         <link rel="stylesheet" href="login-register.css">
@@ -30,7 +30,7 @@
         <script src="${scheduleScriptUrl}"></script>
         <script src="${backToProfileScriptUrl}"></script>
         <script src="${logoutScriptUrl}"></script>
-        <script src="${authScriptUrl}"></script>
+        <script src="${googleAuthScriptUrl}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <title>App</title>

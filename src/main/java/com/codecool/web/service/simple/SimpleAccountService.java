@@ -34,4 +34,9 @@ public final class SimpleAccountService implements AccountService {
     public boolean accountAlreadyExists(String email) throws SQLException, ServiceException{
         return accountDao.accountAlreadyExists(email);
     }
+
+    @Override
+    public boolean validateEmail(String email) throws SQLException, ServiceException {
+        return accountDao.validateEmail(email);
+    }
 }

@@ -14,4 +14,6 @@ public interface AccountService {
     Account findByEmail(String email) throws SQLException, ServiceException;
 
     boolean accountAlreadyExists(String email) throws SQLException, ServiceException;
+
+    boolean validateEmail(String email) throws SQLException, ServiceException;
 }

@@ -49,18 +49,19 @@ public final class GoogleAuthServlet extends AbstractServlet {
             if (idToken != null) {
                 Payload payload = idToken.getPayload();
                 // Get profile information from payload
-                String email = payload.getEmail();
                 Account account;
-                if (accountService.accountAlreadyExists(email)) {
+                String email = payload.getEmail();
+                if (accountService.validateEmail(email)) {
                     account = accountService.findByEmail(email);
                 } else {
                     String username = (String) payload.get("name");
                     String emailNew = payload.getEmail();
                     String password = null;
                     String permission = "regular";
-                    registerService.registerUser(username, emailNew, password, permission);
+                    registerService.registerUser(username, email, password, permission);
                     account = accountService.findByEmail(emailNew);
                 }
+                // loginService.loginUser(account.getEmail(),account.getPassword());
                 req.getSession().setAttribute("account", account);
                 sendMessage(resp, HttpServletResponse.SC_OK, account);
             }
