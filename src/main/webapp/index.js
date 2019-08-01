@@ -20,7 +20,7 @@ let registerContentDivEl;
 
 function togglediv(id) {
     const div = document.getElementById(id);
-    div.style.display = div.style.display == "none" ? "block" : "none";
+    div.style.display = div.style.display === "none" ? "block" : "none";
 }
 
 function newInfo(targetEl, message) {
