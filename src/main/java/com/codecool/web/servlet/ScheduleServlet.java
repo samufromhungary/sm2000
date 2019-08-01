@@ -61,7 +61,7 @@ public final class ScheduleServlet extends AbstractServlet {
             Object [] tempStorage = new Object[3];
             tempStorage[0] = schedule;
             tempStorage[1] = tasks;
-//            tempStorage[2] = coordinated;
+            tempStorage[2] = coordinated;
 
             sendMessage(resp, HttpServletResponse.SC_OK, tempStorage);
 
