@@ -8,17 +8,18 @@ function onScheduleResponse() {
         const schedule = data[0];
         const tasks = data[1];
         const coordinated = data[2];
-        createScheduleTableDisplay(schedule,coordinated,tasks);
+        createScheduleTableDisplay(schedule, coordinated, tasks);
         onScheduleTaskLoad(tasks);
     } else {
         onOtherResponse(scheduleContentDivEl, this);
     }
 }
+
 function displayTaskInSchedule() {
 
 }
 
-function createScheduleTableBody(schedule,coordinated,tasks) {
+function createScheduleTableBody(schedule, coordinated, tasks) {
     const tbodyEl = document.createElement('tbody');
     tbodyEl.setAttribute('id', 'tableBody');
 
@@ -31,19 +32,18 @@ function createScheduleTableBody(schedule,coordinated,tasks) {
         const trEl = document.createElement('tr');
         trEl.appendChild(eventNameTdEl);
 
-        for (let m = 1; m <= schedule.days; m++) {
+        for (let m = 0; m < schedule.days; m++) {
 
             const tableNameTdEl = document.createElement('td');
             tableNameTdEl.classList.add('default-cell');
-            if(coordinated.day == m) {
-                if(coordinated.start_date == i || coordinated.end_date == i){
+            if (coordinated.day === m) {
+                if (!(coordinated.start_date >= i || coordinated.end_date <= i)) {
                     const dateNum = coordinated.end_date - coordinated.start_date;
-                    for(let j = 0; j < dateNum; j++ ){
+                    for (let j = 0; j < dateNum; j++) {
                         tableNameTdEl.textContent = coordinated.taskId;
                     }
                 }
-            }
-            else{
+            } else {
                 tableNameTdEl.textContent = ' ';
             }
             trEl.appendChild(tableNameTdEl);
@@ -57,10 +57,11 @@ function createScheduleTableBody(schedule,coordinated,tasks) {
 
 function createScheduleTableHeader(schedule) {
     const trEl = document.createElement('tr');
-    
+
     const eventNameThEl = document.createElement('th');
     eventNameThEl.setAttribute('id', 'tableHead');
-    eventNameThEl.classList.add('default-th'); ``
+    eventNameThEl.classList.add('default-th');
+    ``
     eventNameThEl.textContent = 'Hours';
 
     trEl.appendChild(eventNameThEl);
@@ -77,15 +78,17 @@ function createScheduleTableHeader(schedule) {
     theadEl.appendChild(trEl);
     return theadEl;
 }
-function createScheduleTableDisplay(schedule,coordinated,tasks) {
+
+function createScheduleTableDisplay(schedule, coordinated, tasks) {
     const tableEl = document.createElement('table');
     tableEl.setAttribute('id', 'table');
     const theadEl = createScheduleTableHeader(schedule);
-    const tbodyEl = createScheduleTableBody(schedule,coordinated,tasks);
+    const tbodyEl = createScheduleTableBody(schedule, coordinated, tasks);
     tableEl.appendChild(theadEl);
     tableEl.appendChild(tbodyEl);
     scheduleContentDivEl.appendChild(tableEl);
 }
+
 function onTaskAssignClicked() {
     const scheduleTaskFormEl = document.forms['schedule-task-form']
 

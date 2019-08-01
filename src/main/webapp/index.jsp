@@ -52,7 +52,7 @@
         <br><br>
         <input type="password" name="password" placeholder=" password">
         <br><br>
-        <button id="login-button">Login</button>
+        <button id="login-button" onclick="togglediv('g-signin2')">Login</button>
     </form>
     <br>
     <button id="toggle-trigger" onclick="togglediv('register-content')">Sign up</button>
