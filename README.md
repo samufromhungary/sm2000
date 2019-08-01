@@ -1,2 +1,2 @@
-# Schedule Master 2000 - A codecool teamwork project by Balint Kokai, Daniel Toth, and Mark Szombati
-# Currently at: Implementing Week nr. 2
+# Schedule Master 2000 - A codecool teamwork project by Bálint Kókai, Dániel Tóth, and Márk Szombati
+# Currently at: Implementing Week nr. 3
