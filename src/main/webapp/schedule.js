@@ -14,6 +14,9 @@ function onScheduleResponse() {
         onOtherResponse(scheduleContentDivEl, this);
     }
 }
+function displayTaskInSchedule() {
+
+}
 
 function createScheduleTableBody(schedule,coordinated,tasks) {
     const tbodyEl = document.createElement('tbody');
@@ -33,10 +36,15 @@ function createScheduleTableBody(schedule,coordinated,tasks) {
             const tableNameTdEl = document.createElement('td');
             tableNameTdEl.classList.add('default-cell');
             if(coordinated.day == m) {
-                tableNameTdEl.textContent = coordinated.taskId;
+                if(coordinated.start_date == i || coordinated.end_date == i){
+                    const dateNum = coordinated.end_date - coordinated.start_date;
+                    for(let j = 0; j < dateNum; j++ ){
+                        tableNameTdEl.textContent = coordinated.taskId;
+                    }
+                }
             }
             else{
-            tableNameTdEl.textContent = ' ';
+                tableNameTdEl.textContent = ' ';
             }
             trEl.appendChild(tableNameTdEl);
         }
