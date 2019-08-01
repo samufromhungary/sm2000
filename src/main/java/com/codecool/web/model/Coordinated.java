@@ -2,15 +2,14 @@ package com.codecool.web.model;
 
 import java.util.Objects;
 
-public final class Coordinated extends AbstractModel{
+public final class Coordinated{
     private int taskId;
     private int scheduleId;
     private int day;
     private int start_date;
     private int end_date;
 
-    public Coordinated(int id,int taskId,int scheduleId,int day, int start_date,int end_date) {
-        super(id);
+    public Coordinated(int taskId,int scheduleId,int day, int start_date,int end_date) {
         this.taskId = taskId;
         this.scheduleId = scheduleId;
         this.day = day;

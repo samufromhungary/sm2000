@@ -6,6 +6,6 @@ import com.codecool.web.service.exception.ServiceException;
 import java.sql.SQLException;
 
 public interface CoordinatedService {
-    Coordinated getCoordinated(int tasksId) throws SQLException, ServiceException;
+    Coordinated getCoordinated(int schedulesId) throws SQLException, ServiceException;
 
 }

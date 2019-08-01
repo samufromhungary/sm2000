@@ -15,11 +15,11 @@ public final class SimpleCoordinatedService implements CoordinatedService {
     }
 
     @Override
-    public Coordinated getCoordinated(int tasksId) throws SQLException, ServiceException {
+    public Coordinated getCoordinated(int schedulesId) throws SQLException, ServiceException {
         try {
-            return coordinatedDao.findByTasksId(tasksId);
+            return coordinatedDao.findBySchedulesId(schedulesId);
         } catch (NumberFormatException ex) {
-            throw new ServiceException("Task ID must be an Int");
+            throw new ServiceException("Schedule ID must be an Int");
         } catch (IllegalArgumentException ex) {
             throw new ServiceException(ex.getMessage());
         }

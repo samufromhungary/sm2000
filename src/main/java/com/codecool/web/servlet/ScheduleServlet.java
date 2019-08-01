@@ -53,12 +53,12 @@ public final class ScheduleServlet extends AbstractServlet {
             Schedule schedule = scheduleService.getScheduleId(id);
             req.getSession().setAttribute("schedule",schedule);
 
-//            Coordinated coordinated = coordinatedService.getCoordinated(tasksId);
+            Coordinated coordinated = coordinatedService.getCoordinated(schedule.getId());
 
             List<Task> tasks = taskService.getTasksById(accounts_id);
 
 
-            Object [] tempStorage = new Object[2];
+            Object [] tempStorage = new Object[3];
             tempStorage[0] = schedule;
             tempStorage[1] = tasks;
 //            tempStorage[2] = coordinated;
@@ -96,6 +96,7 @@ public final class ScheduleServlet extends AbstractServlet {
             int endDate = Integer.valueOf(req.getParameter("endDate"));
 
             taskService.addToCoordinated(tasksId,schedulesId,days,startDate,endDate);
+            Coordinated coordinated = new Coordinated(tasksId,schedulesId,days,startDate,endDate);
 
             sendMessage(resp, HttpServletResponse.SC_OK, "Added successfully");
             logService.log(account.getUsername() + " added a task to his/her schedule");

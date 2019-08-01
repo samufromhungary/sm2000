@@ -5,5 +5,5 @@ import com.codecool.web.model.Coordinated;
 import java.sql.SQLException;
 
 public interface CoordinatedDao {
-    Coordinated findByTasksId (int tasksId) throws SQLException;
+    Coordinated findBySchedulesId (int schedulesId) throws SQLException;
 }

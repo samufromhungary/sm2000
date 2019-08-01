@@ -16,13 +16,13 @@ public final class DataBaseCoordinatedDao extends AbstractDao implements Coordin
     }
 
     @Override
-    public Coordinated findByTasksId(int tasksId) throws SQLException {
-        if(tasksId == 0 || "".equals(tasksId) ) {
-            throw new IllegalArgumentException("Task ID cannot be null or empty");
+    public Coordinated findBySchedulesId(int schedulesId) throws SQLException {
+        if(schedulesId == 0 || "".equals(schedulesId) ) {
+            throw new IllegalArgumentException("Schedule ID cannot be null or empty");
         }
-        String sql = "SELECT tasks_id, schedules_id, day, start_date, end_date FROM coordinated WHERE tasks_id = ?";
+        String sql = "SELECT tasks_id, schedules_id, selected_day, start_date, end_date FROM coordinated WHERE schedules_id = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setInt(1, tasksId);
+            statement.setInt(1, schedulesId);
             try(ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
                     return fetchCoordinated(resultSet);
@@ -33,12 +33,11 @@ public final class DataBaseCoordinatedDao extends AbstractDao implements Coordin
     }
 
     private Coordinated fetchCoordinated(ResultSet resultSet)throws SQLException{
-        int id = resultSet.getInt("id");
         int tasksId = resultSet.getInt("tasks_id");
         int schedulesId = resultSet.getInt("schedules_id");
-        int day = resultSet.getInt("day");
+        int day = resultSet.getInt("selected_day");
         int startDate = resultSet.getInt("start_date");
         int endDate = resultSet.getInt("end_date");
-        return new Coordinated(id,tasksId,schedulesId,day,startDate,endDate);
+        return new Coordinated(tasksId,schedulesId,day,startDate,endDate);
     }
 }
