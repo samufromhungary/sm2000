@@ -81,7 +81,7 @@ function createScheduleTableDisplay(schedule, coordinated) {
                 trEl.setAttribute('id', 'trEl');
                 trEl.appendChild(hoursTdEl);
 
-                for (let m = 0; m < schedule.days; m++) {
+                for (let m = 1; m <= schedule.days; m++) {
 
                     const daysTdEl = document.createElement('td');
                     daysTdEl.classList.add('default-cell');
