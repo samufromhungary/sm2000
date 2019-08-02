@@ -144,8 +144,7 @@ function onTaskAssignClicked() {
 function onTaskAssignResponse() {
     clearMessages();
     if (this.status === OK) {
-
-        onScheduleClicked();
+        onSchedulesClicked()
     } else {
         onOtherResponse(scheduleContentDivEl, this);
     }
