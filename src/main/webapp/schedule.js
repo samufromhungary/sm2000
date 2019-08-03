@@ -36,6 +36,7 @@ function createScheduleTableBody(schedule, coordinated) {
             trEl.appendChild(daysTdEl);
         }
         tbodyEl.appendChild(trEl);
+
     }
     return tbodyEl;
 
