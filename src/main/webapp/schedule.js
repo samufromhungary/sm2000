@@ -40,6 +40,7 @@ function createScheduleTableBody(schedule, coordinated) {
     return tbodyEl;
 }
 
+
 function createScheduleTableHeader(schedule) {
     const trEl = document.createElement('tr');
 
