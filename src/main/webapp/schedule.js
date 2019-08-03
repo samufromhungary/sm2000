@@ -38,6 +38,7 @@ function createScheduleTableBody(schedule, coordinated) {
         tbodyEl.appendChild(trEl);
     }
     return tbodyEl;
+
 }
 
 
