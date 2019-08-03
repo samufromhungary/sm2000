@@ -2,19 +2,6 @@ let tasksTableEl;
 let tasksTableBodyEl;
 let taskTitle;
 
-function onTaskClicked() {
-    const taskId = this.dataset.taskId;
-
-    const params = new URLSearchParams();
-    params.append('id', taskId);
-
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onTaskResponse);
-    xhr.addEventListener('error', onNetworkError);
-    xhr.open('GET', 'protected/task?' + params.toString());
-    xhr.send();
-}
-
 function onTaskAddResponse() {
    clearMessages();
     if (this.status === OK) {
@@ -104,7 +91,6 @@ function appendTask(task) {
 
     const aEl = document.createElement('a');
     aEl.textContent = task.title;
-    aEl.href = 'javascript:void(0);';
     aEl.dataset.taskId = task.id;
     aEl.addEventListener('click', onTasksClicked);
 

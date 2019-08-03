@@ -103,10 +103,16 @@ a {
 
 .error {
     color: red;
+    text-shadow: none;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .info {
     color: blue;
+    text-shadow: none;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .hidden {
